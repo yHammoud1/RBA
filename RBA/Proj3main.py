@@ -7,6 +7,7 @@ Created on Sun Jun 27 21:39:02 2021
 
 import pandas as pd
 import datetime
+from functools import reduce
 
 ########### 1. Import Data ################################################################
 res1 = pd.read_csv('./dataverse_files/Residential_3.csv', dayfirst=True);
@@ -32,9 +33,8 @@ def fixdates(res):
     res['DateTime'] = res['date'].astype(str) + ' ' + res['hour'];
     res['DateTime'] = pd.to_datetime(res['DateTime'],format="%Y/%m/%d %H:%M:%S");
     res = res.set_index('DateTime', drop=True);
-    res = res.drop(columns=['date', 'hour'], axis=1);
+    res = res.drop(columns=['date', 'hour'], axis=1); 
     return res
-
 
 
 res1 = fixdates(res1)
@@ -48,4 +48,24 @@ res8 = fixdates(res8)
 res9 = fixdates(res9)
 res10 = fixdates(res10)
 
-trial = pd.merge(res1, meteo, how='outer', left_on=res1.index , right_on=meteo.index)
+res1 = res1.rename(columns={'energy_kWh':'Energy_res1'})
+res2 = res2.rename(columns={'energy_kWh':'Energy_res2'})
+res3 = res3.rename(columns={'energy_kWh':'Energy_res3'})
+res4 = res4.rename(columns={'energy_kWh':'Energy_res4'})
+res5 = res5.rename(columns={'energy_kWh':'Energy_res5'})
+res6 = res6.rename(columns={'energy_kWh':'Energy_res6'})
+res7 = res7.rename(columns={'energy_kWh':'Energy_res7'})
+res8 = res8.rename(columns={'energy_kWh':'Energy_res8'})
+res9 = res9.rename(columns={'energy_kWh':'Energy_res9'})
+res10 = res10.rename(columns={'energy_kWh':'Energy_res10'})
+
+data_frames = [res1, res2, res3, res4, res5, res6, res7, res8, res9, res10]
+
+
+df_merged = reduce(lambda  left,right: pd.merge(left,right,on=['DateTime'],
+                                            how='outer'), data_frames)
+
+
+# trial = pd.merge(res1, meteo, how='outer', left_on=res1.index , right_on=meteo.index)
+# trial = trial.rename(columns={'key_0':'Date'})
+
