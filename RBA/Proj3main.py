@@ -4,9 +4,8 @@ Created on Sun Jun 27 21:39:02 2021
 
 @author: Yara
 """
-import numpy as np
+
 import pandas as pd
-from matplotlib import pyplot as plt
 import datetime
 
 ########### 1. Import Data ################################################################
@@ -29,12 +28,14 @@ meteo.index = pd.to_datetime(meteo.index);
 
 
 def fixdates(res):
-    res['hour'] = [datetime.time(num).strftime("%I:00 %p") for num in res['hour']];
-    res['DateTime'] = res['date'] + ' ' + res['hour'];
-    res['DateTime'] = pd.to_datetime(res['DateTime']);
+    res['hour'] = [datetime.time(num).strftime("%H:00:00") for num in res['hour']];
+    res['DateTime'] = res['date'].astype(str) + ' ' + res['hour'];
+    res['DateTime'] = pd.to_datetime(res['DateTime'],format="%Y/%m/%d %H:%M:%S");
     res = res.set_index('DateTime', drop=True);
     res = res.drop(columns=['date', 'hour'], axis=1);
     return res
+
+
 
 res1 = fixdates(res1)
 res2 = fixdates(res2)
