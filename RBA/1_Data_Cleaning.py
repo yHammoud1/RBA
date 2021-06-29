@@ -109,5 +109,7 @@ all_data = all_data.rename(columns={'key_0':'Date', 'AirTemp':'AirTemp_C',
                            'SurfacePressure':'SurfacePressure_hPa', 
                            'WindSpeed10m':'WindSpeed10m_m/s'})
 
+all_data = all_data[all_data['Date'] < '2018-01-30 00:00:00' ]
+
 ## Save final dataframe
 all_data.to_csv('Proj3_clean_data.csv', encoding='utf-8', index=False)
