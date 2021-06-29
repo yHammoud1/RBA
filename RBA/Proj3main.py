@@ -75,7 +75,6 @@ data_frames = [res1, res2, res3, res4, res5, res6, res7, res8, res9, res10]
 energy_data = reduce(lambda  left,right: pd.merge(left,right,on=['DateTime'],
                                             how='outer'), data_frames)
 
-# trial = pd.merge(res1, meteo, how='outer', left_on=res1.index , right_on=meteo.index)
 
 ## Croping the data so that the energy data used for all buildings have same start and end date
 # with the final duration of available data being from 21-02-2015 to 29-01-2018
@@ -101,5 +100,14 @@ all_data = all_data.set_index('DateTime', drop = True)
 all_data = all_data.drop(columns=['date only', 'date', 'day'], axis=1)
 
 
+## Merge all energy data (and holidays) with meteo data
+all_data = pd.merge(all_data, meteo, left_on=all_data.index, right_on=meteo.index, how='outer')
+all_data = all_data.rename(columns={'key_0':'Date', 'AirTemp':'AirTemp_C', 
+                           'Ghi':'GlobalSolarRad_W/m2', 
+                           'PrecipitableWater':'PrecipitableWater_kg/m2',
+                           'SnowWater':'SnowDepth_LWE_cm',
+                           'SurfacePressure':'SurfacePressure_hPa', 
+                           'WindSpeed10m':'WindSpeed10m_m/s'})
 
-
+## Save final dataframe
+all_data.to_csv('Proj3_clean_data.csv', encoding='utf-8', index=False)
