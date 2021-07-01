@@ -15,12 +15,16 @@ df['Date'] = pd.to_datetime(df['Date'],format="%Y/%m/%d %H:%M:%S")
 df = df.set_index('Date', drop=True)
 
 ########### Display Data ################################################################
+df = df.drop([df.index[28842],df.index[28843],df.index[28844]])
+
 fig1, ax1 = plt.subplots()
 ax1.plot(df.index, df['AirTemp_C'])
 #ax1.set_title('A single plot')
 
 fig2, ax2 = plt.subplots()
 ax2.plot(df.index, df['Energy_res1'])
+
+
 
 #plt.plot( df['AirTemp_C'])
 #plt.plot( df['Energy_res1'])
