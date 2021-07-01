@@ -109,9 +109,18 @@ all_data = all_data.rename(columns={'key_0':'Date', 'AirTemp':'AirTemp_C',
                            'SurfacePressure':'SurfacePressure_hPa', 
                            'WindSpeed10m':'WindSpeed10m_m/s'})
 
+#Drop dates outside of my study period
 all_data = all_data[all_data['Date']>= '2015-02-21 00:00:00' ]
 all_data = all_data[all_data['Date'] < '2018-01-30 00:00:00' ]
+
+#Drop recurrent dates (that existed due to day-light-saving changes)
+all_data = all_data.drop([all_data.index[28842],all_data.index[28843],all_data.index[28844]])
 
 
 ## Save final dataframe
 all_data.to_csv('Proj3_clean_data.csv', encoding='utf-8', index=False)
+
+#I chose not to interpolate and replace the missing values (NaN), since these data are not real
+# values, and it might be better not to provide misleading data to the models
+#We will later notice that the difference of this action in regards to the results of the 
+# models is very small.
