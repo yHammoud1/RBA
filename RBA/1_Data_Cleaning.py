@@ -85,7 +85,7 @@ energy_data = energy_data[energy_data.index < '2018-01-30 00:00:00' ]
 holidays['weekend'] = np.where(pd.isnull(holidays['holiday']), holidays.index.dayofweek, holidays['weekend'])
 holidays['weekend'] = np.where(pd.isnull(holidays['holiday']), holidays['weekend'],7)
 holidays = holidays.drop(columns=['dst', 'holiday'], axis=1)
-holidays = holidays.rename(columns={'weekend':'Day Type'})
+holidays = holidays.rename(columns={'weekend':'Day of Week'})
 
 
 ## Merge holiday data with energy data
@@ -116,9 +116,12 @@ all_data = all_data[all_data['Date'] < '2018-01-30 00:00:00' ]
 #Drop recurrent dates (that existed due to day-light-saving changes)
 all_data = all_data.drop([all_data.index[28842],all_data.index[28843],all_data.index[28844]])
 
+#Create a column for hour (which is a useful feature later on)
+all_data = all_data.set_index('Date', drop = True)
+all_data['Hour']=all_data.index.hour
 
 ## Save final dataframe
-all_data.to_csv('Proj3_clean_data.csv', encoding='utf-8', index=False)
+all_data.to_csv('Proj3_clean_data_combined.csv', encoding='utf-8', index=True)
 
 #I chose not to interpolate and replace the missing values (NaN), since these data are not real
 # values, and it might be better not to provide misleading data to the models

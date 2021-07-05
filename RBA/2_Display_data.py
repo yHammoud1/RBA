@@ -9,7 +9,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-df = pd.read_csv('Proj3_clean_data.csv', parse_dates=['Date'])
+df = pd.read_csv('Proj3_clean_data_combined.csv', parse_dates=['Date'])
 df['Date'] = pd.to_datetime(df['Date'],format="%Y/%m/%d %H:%M:%S")
 df = df.set_index('Date', drop=True)
 
