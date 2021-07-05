@@ -6,10 +6,9 @@ Created on Thu Jul  1 22:38:48 2021
 """
 import numpy as np
 import pandas as pd
-import datetime
 import matplotlib.pyplot as plt
 import seaborn as sb
-from scipy import stats
+
 
 
 df = pd.read_csv('Proj3_clean_data_combined.csv', parse_dates=['Date'])
