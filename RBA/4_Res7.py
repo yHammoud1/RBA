@@ -195,10 +195,10 @@ for n_cluster in n_cluster_list:
     
 plt.plot(n_cluster_list,sillhoute_scores)
 plt.show()
-#graph shows that maybe best is 2 or 3 clusters --> will continue with 3 clusters
+#graph shows that maybe best is 2 or 3 clusters --> will continue with 2 clusters
 
 #create two indices for the pivot table: by adding a cluster one
-kmeans4 = KMeans(n_clusters=3)
+kmeans4 = KMeans(n_clusters=2)
 cluster_found = kmeans4.fit_predict(X)
 cluster_found_sr = pd.Series(cluster_found, name='blabla')
 df_pivot = df_pivot.set_index(cluster_found_sr, append=True )
