@@ -356,9 +356,12 @@ y_pred_LR = LR_model.predict(X_test)
 plt.plot(y_test[1:200], label='testing')
 plt.plot(y_pred_LR[1:200], label='predicted')
 plt.legend()
+plt.title('Linear Regression')
 plt.show()
 
 plt.scatter(y_test,y_pred_LR)
+plt.title('Linear Regression')
+plt.show()
 #we can see that the predicted data always looks a bit underfit
 
 from sklearn import  metrics #MAE, RMSE, ...
@@ -398,10 +401,14 @@ y_pred_SVR2=sc_y.inverse_transform(y_pred_SVR) #transform back to my scale to un
 plt.plot(y_test_SVR[1:200], label='testing')
 plt.plot(y_pred_SVR[1:200], label='predicted')
 plt.legend()
+plt.title('Support Vector Machine')
 plt.show()
+
 plt.plot(y_test[1:200], label='testing')
 plt.plot(y_pred_SVR2[1:200], label='predicted')
 plt.legend()
+plt.title('Support Vector Machine')
+plt.show()
 
 MAE_SVR=metrics.mean_absolute_error(y_test,y_pred_SVR2) 
 MSE_SVR=metrics.mean_squared_error(y_test,y_pred_SVR2)  
@@ -429,8 +436,12 @@ y_pred_DT = DT_model.predict(X_test)
 plt.plot(y_test[1:200], label='tested')
 plt.plot(y_pred_DT[1:200], label='predicted')
 plt.legend()
+plt.title('Regression Decicion Tree')
 plt.show()
+
 plt.scatter(y_test,y_pred_DT)
+plt.title('Regression Decicion Tree')
+plt.show()
 
 #Evaluate errors
 MAE_DT=metrics.mean_absolute_error(y_test,y_pred_DT) 
@@ -465,8 +476,12 @@ print(MAE_RF,MSE_RF,RMSE_RF,cvRMSE_RF)
 plt.plot(y_test[1:200], label='tested')
 plt.plot(y_pred_RF[1:200], label='predicted')
 plt.legend()
+plt.title('Random Forest')
 plt.show()
+
 plt.scatter(y_test,y_pred_RF)
+plt.title('Random Forest')
+plt.show()
 
 
 
@@ -503,8 +518,12 @@ print(MAE_RFU,MSE_RFU,RMSE_RFU,cvRMSE_RFU)
 plt.plot(y_test[1:200], label='tested')
 plt.plot(y_pred_RFU[1:200], label='predicted')
 plt.legend()
+plt.title('Random Forest Uniformized Data')
 plt.show()
+
 plt.scatter(y_test,y_pred_RFU)
+plt.title('Random Forest Uniformized Data')
+plt.show()
 
 
 
@@ -528,8 +547,12 @@ print(MAE_GB,MSE_GB,RMSE_GB,cvRMSE_GB)
 plt.plot(y_test[1:200], label='tested')
 plt.plot(y_pred_GB[1:200], label='predicted')
 plt.legend()
+plt.title('Gradient Boosting')
 plt.show()
+
 plt.scatter(y_test,y_pred_GB)
+plt.title('Gradient Boosting')
+plt.show()
 
 
 
@@ -553,9 +576,12 @@ print(MAE_XGB,MSE_XGB,RMSE_XGB,cvRMSE_XGB)
 plt.plot(y_test[1:200], label='tested')
 plt.plot(y_pred_XGB[1:200], label='predicted')
 plt.legend()
+plt.title('Extreme Gradient Boosting')
 plt.show()
-plt.scatter(y_test,y_pred_XGB)
 
+plt.scatter(y_test,y_pred_XGB)
+plt.title('Extreme Gradient Boosting')
+plt.show()
 
 
 ### Bootstraping
@@ -574,8 +600,12 @@ print(MAE_BT,MSE_BT,RMSE_BT,cvRMSE_BT)
 plt.plot(y_test[1:200], label='tested')
 plt.plot(y_pred_BT[1:200], label='predicted')
 plt.legend()
+plt.title('Bootstraping')
 plt.show()
+
 plt.scatter(y_test,y_pred_BT)
+plt.title('Bootstraping')
+plt.show()
 
 
 
@@ -596,8 +626,12 @@ print(MAE_NN,MSE_NN,RMSE_NN,cvRMSE_NN)
 plt.plot(y_test[1:200], label='tested')
 plt.plot(y_pred_NN[1:200], label='predicted')
 plt.legend()
+plt.title('Neural Networks')
 plt.show()
+
 plt.scatter(y_test,y_pred_NN)
+plt.title('Neural Networks')
+plt.show()
 
 
 ######## Final Model: Random Forest #######################################
