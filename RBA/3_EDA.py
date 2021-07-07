@@ -68,6 +68,18 @@ dfz10 = df[(z10 < 6.5)]
 #after sorting the data we can notice that some of the upper values of energy consumption data was removed but probably these are real values and not outliers, while zeros where not rewmoved
 # this is justified because seeing the histogram of residential 1 energy consumption data we see that it is not at all normally distributed
 
+dfz1opp = df[(z1 > 6.5)]
+dfz2opp = df[(z2 > 6.5)]
+dfz3opp = df[(z3 > 6.5)]
+dfz4opp = df[(z4 > 6.5)]
+dfz5opp = df[(z5 > 6.5)]
+dfz6opp = df[(z6 > 6.5)]
+dfz7opp = df[(z7 > 6.5)]
+dfz8opp = df[(z8 > 6.5)]
+dfz9opp = df[(z9 > 6.5)]
+dfz10opp = df[(z10 > 6.5)]
+
+
 ## IQR Method:
 Q1_1 = df['Energy_res1'].quantile(0.25)
 Q3_1 = df['Energy_res1'].quantile(0.75)
@@ -120,6 +132,20 @@ df_IQR_8 = df[((df['Energy_res8'] > (Q1_8 - 1.5 * IQR_8)) & (df['Energy_res8'] <
 df_IQR_9 = df[((df['Energy_res9'] > (Q1_9 - 1.5 * IQR_9)) & (df['Energy_res9'] < (Q3_9 + 1.5 * IQR_9)))]
 df_IQR_10 = df[((df['Energy_res10'] > (Q1_10 - 1.5 * IQR_10)) & (df['Energy_res10'] < (Q3_10 + 1.5 * IQR_10)))]
 
+
+df_IQR1_opp = df[((df['Energy_res1'] < (Q1_1 - 1.5 * IQR_1)) | (df['Energy_res1'] > (Q3_1 + 1.5 * IQR_1)))]
+df_IQR2_opp = df[((df['Energy_res2'] < (Q1_2 - 1.5 * IQR_2)) | (df['Energy_res2'] > (Q3_2 + 1.5 * IQR_2)))]
+df_IQR3_opp = df[((df['Energy_res3'] < (Q1_3 - 1.5 * IQR_3)) | (df['Energy_res3'] > (Q3_3 + 1.5 * IQR_3)))]
+df_IQR4_opp = df[((df['Energy_res4'] < (Q1_4 - 1.5 * IQR_4)) | (df['Energy_res4'] > (Q3_4 + 1.5 * IQR_4)))]
+df_IQR5_opp = df[((df['Energy_res5'] < (Q1_5 - 1.5 * IQR_5)) | (df['Energy_res5'] > (Q3_5 + 1.5 * IQR_5)))]
+df_IQR6_opp = df[((df['Energy_res6'] < (Q1_6 - 1.5 * IQR_6)) | (df['Energy_res6'] > (Q3_6 + 1.5 * IQR_6)))]
+df_IQR7_opp = df[((df['Energy_res7'] < (Q1_7 - 1.5 * IQR_7)) | (df['Energy_res7'] > (Q3_7 + 1.5 * IQR_7)))]
+df_IQR8_opp = df[((df['Energy_res8'] < (Q1_8 - 1.5 * IQR_8)) | (df['Energy_res8'] > (Q3_8 + 1.5 * IQR_8)))]
+df_IQR9_opp = df[((df['Energy_res9'] < (Q1_9 - 1.5 * IQR_9)) | (df['Energy_res9'] > (Q3_9 + 1.5 * IQR_9)))]
+df_IQR10_opp = df[((df['Energy_res10'] < (Q1_10 - 1.5 * IQR_10)) | (df['Energy_res10'] > (Q3_10 + 1.5 * IQR_10)))]
+
+
+
 ## Final decision to clean data from outliers:
 #final decision made was to delete all points below a specific quantile for each residential, while there seems to be no high value outliers as mentioned before
 
@@ -167,3 +193,51 @@ df7.to_csv('Clean_data/res7.csv', encoding='utf-8', index=True)
 df8.to_csv('Clean_data/res8.csv', encoding='utf-8', index=True)
 df9.to_csv('Clean_data/res9.csv', encoding='utf-8', index=True)
 df10.to_csv('Clean_data/res10.csv', encoding='utf-8', index=True)
+
+
+#save the zscore data for the dashboard
+dfz1.to_csv('Result_csv/EDA_zscore1.csv', encoding='utf-8', index=True)
+dfz2.to_csv('Result_csv/EDA_zscore2.csv', encoding='utf-8', index=True)
+dfz3.to_csv('Result_csv/EDA_zscore3.csv', encoding='utf-8', index=True)
+dfz4.to_csv('Result_csv/EDA_zscore4.csv', encoding='utf-8', index=True)
+dfz5.to_csv('Result_csv/EDA_zscore5.csv', encoding='utf-8', index=True)
+dfz6.to_csv('Result_csv/EDA_zscore6.csv', encoding='utf-8', index=True)
+dfz7.to_csv('Result_csv/EDA_zscore7.csv', encoding='utf-8', index=True)
+dfz8.to_csv('Result_csv/EDA_zscore8.csv', encoding='utf-8', index=True)
+dfz9.to_csv('Result_csv/EDA_zscore9.csv', encoding='utf-8', index=True)
+dfz10.to_csv('Result_csv/EDA_zscore10.csv', encoding='utf-8', index=True)
+
+dfz1opp.to_csv('Result_csv/EDA_zscore1_opp.csv', encoding='utf-8', index=True)
+dfz2opp.to_csv('Result_csv/EDA_zscore2_opp.csv', encoding='utf-8', index=True)
+dfz3opp.to_csv('Result_csv/EDA_zscore3_opp.csv', encoding='utf-8', index=True)
+dfz4opp.to_csv('Result_csv/EDA_zscore4_opp.csv', encoding='utf-8', index=True)
+dfz5opp.to_csv('Result_csv/EDA_zscore5_opp.csv', encoding='utf-8', index=True)
+dfz6opp.to_csv('Result_csv/EDA_zscore6_opp.csv', encoding='utf-8', index=True)
+dfz7opp.to_csv('Result_csv/EDA_zscore7_opp.csv', encoding='utf-8', index=True)
+dfz8opp.to_csv('Result_csv/EDA_zscore8_opp.csv', encoding='utf-8', index=True)
+dfz9opp.to_csv('Result_csv/EDA_zscore9_opp.csv', encoding='utf-8', index=True)
+dfz10opp.to_csv('Result_csv/EDA_zscore10_opp.csv', encoding='utf-8', index=True)
+
+
+#save IQR data for dashboard
+df_IQR_1.to_csv('Result_csv/EDA_IQR1.csv', encoding='utf-8', index=True)
+df_IQR_2.to_csv('Result_csv/EDA_IQR2.csv', encoding='utf-8', index=True)
+df_IQR_3.to_csv('Result_csv/EDA_IQR3.csv', encoding='utf-8', index=True)
+df_IQR_4.to_csv('Result_csv/EDA_IQR4.csv', encoding='utf-8', index=True)
+df_IQR_5.to_csv('Result_csv/EDA_IQR5.csv', encoding='utf-8', index=True)
+df_IQR_6.to_csv('Result_csv/EDA_IQR6.csv', encoding='utf-8', index=True)
+df_IQR_7.to_csv('Result_csv/EDA_IQR7.csv', encoding='utf-8', index=True)
+df_IQR_8.to_csv('Result_csv/EDA_IQR8.csv', encoding='utf-8', index=True)
+df_IQR_9.to_csv('Result_csv/EDA_IQR9.csv', encoding='utf-8', index=True)
+df_IQR_10.to_csv('Result_csv/EDA_IQR10.csv', encoding='utf-8', index=True)
+
+df_IQR1_opp.to_csv('Result_csv/EDA_IQR1_opp.csv', encoding='utf-8', index=True)
+df_IQR2_opp.to_csv('Result_csv/EDA_IQR2_opp.csv', encoding='utf-8', index=True)
+df_IQR3_opp.to_csv('Result_csv/EDA_IQR3_opp.csv', encoding='utf-8', index=True)
+df_IQR4_opp.to_csv('Result_csv/EDA_IQR4_opp.csv', encoding='utf-8', index=True)
+df_IQR5_opp.to_csv('Result_csv/EDA_IQR5_opp.csv', encoding='utf-8', index=True)
+df_IQR6_opp.to_csv('Result_csv/EDA_IQR6_opp.csv', encoding='utf-8', index=True)
+df_IQR7_opp.to_csv('Result_csv/EDA_IQR7_opp.csv', encoding='utf-8', index=True)
+df_IQR8_opp.to_csv('Result_csv/EDA_IQR8_opp.csv', encoding='utf-8', index=True)
+df_IQR9_opp.to_csv('Result_csv/EDA_IQR9_opp.csv', encoding='utf-8', index=True)
+df_IQR10_opp.to_csv('Result_csv/EDA_IQR10_opp.csv', encoding='utf-8', index=True)

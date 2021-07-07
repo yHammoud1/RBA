@@ -47,6 +47,7 @@ plt.show() #should choose the point at the inflection, so here around 9 to 10 cl
 
 #create a new column that presents the cluster number that the point belongs to
 cluster_df['Cluster']=pred 
+cluster_df.to_csv('Result_csv/Cluster_kmeans1_res1.csv', encoding='utf-8', index=True)
 
 ##Plots of the features in 2D (2 at a time)
 # Temp vs Energy consumption
@@ -104,6 +105,7 @@ plt.show() #should choose the point at the inflection, so here around 2 to 3 clu
 
 #create a new column that presents the cluster number that the point belongs to
 cluster_df2['Cluster2']=pred2
+cluster_df2.to_csv('Result_csv/Cluster_kmeans2_res1.csv', encoding='utf-8', index=True)
 
 ##Plots of the features in 2D (2 at a time)
 # RH vs Energy consumption
@@ -138,6 +140,7 @@ ax7.set_title('Elbow Curve')
 
 #create a new column that presents the cluster number that the point belongs to
 cluster_df3['Cluster3']=pred3
+cluster_df3.to_csv('Result_csv/Cluster_kmeans3_res1.csv', encoding='utf-8', index=True)
 
 ##Plots of the features in 2D (2 at a time)
 # Rain vs Energy consumption
@@ -217,6 +220,10 @@ plt.ylim([0, 6])
 plt.show()
 #can clearly see the two clusters, these could be weekends and weekdays, or due to daylight saving but this cannot be so clear from the plot
 
+df_pivot.to_csv('Result_csv/Cluster_loadcurve_res1.csv', encoding='utf-8', index=True)
+fig.savefig('loadcurve_res1.png')
+
+
 
 
 ########### Feature Selection ######################################################
@@ -255,6 +262,7 @@ print(features_results3)
 #least relevant one is the wind speed
 
 
+
 ##Selecting 2 best features: Mutual_info_regression
 features=SelectKBest(k=2,score_func=mutual_info_regression) # Test different k number of features, uses f-test ANOVA
 fit=features.fit(X,Y) #calculates the f_regression between all the features and the output
@@ -270,6 +278,8 @@ print(fit.scores_)
 features_results=fit.transform(X) #which are the best 3 features
 print(features_results) 
 #3 best features are Power-1, hour and precipitable water
+
+
 
 #### Wrapper Methods
 ### Recursive Feature Elemination
@@ -311,6 +321,8 @@ df['Prec2']=np.square(df['PrecipitableWater_kg/m2'])
 # Heating degree.hour
 df['HDH']=np.maximum(0,df['AirTemp_C']-16) #max btwn temp and reference value (16 degrees, and 0)
 
+df.to_csv('Result_csv/Feature_Eng_res1.csv', encoding='utf-8', index=True)
+
 # recurrent: working with Power-1 as missing now
 #will have to interpolate here because the models do not work with nan values
 df = df.interpolate()
@@ -325,6 +337,7 @@ print(model.feature_importances_) # 2 most relevant features: Energy and Hour
 #final decision of features: Energy-1, Solar radiation, Temp, Hour, day of week
 df_model = df.drop(columns=['SnowDepth_LWE_cm', 'RelativeHumidity', 'SurfacePressure_hPa', 'WindDirection10m', 'PrecipitableWater_kg/m2', 'WindSpeed10m_m/s', 'temp2', 'LWE2', 'Prec2', 'HDH'])
 
+df_model.to_csv('Result_csv/Model_dataset_res1.csv', encoding='utf-8', index=True)
 
 
 ########## Regression Models #################################################
@@ -353,6 +366,9 @@ LR_model.fit(X_train,y_train)
 # Make predictions using the testing set
 y_pred_LR = LR_model.predict(X_test)
 
+table1 = pd.DataFrame(columns = ['y_pred_LR', 'y_pred_SVR', 'y_pred_DT', 'y_pred_RF', 'y_pred_RFU', 'y_pred_GB', 'y_pred_XGB', 'y_pred_BT', 'y_pred_NN'])
+table1['y_pred_LR']=y_pred_LR
+
 plt.plot(y_test[1:200], label='testing')
 plt.plot(y_pred_LR[1:200], label='predicted')
 plt.legend()
@@ -377,6 +393,9 @@ print(MAE_LR, MSE_LR, RMSE_LR,cvRMSE_LR)
 #RMSE= 0.47
 #cvRMSE: is a % from 0 to 1 (here 39% error btwn estimation and real value)
 
+table = pd.DataFrame(columns = ['Method', 'MAE', 'MSE', 'RMSE', 'cvRMSE'])
+table = table.append({'Method' : 'Linear Regression', 'MAE' : MAE_LR, 'MSE' : MSE_LR, 'RMSE': RMSE_LR, 'cvRMSE': cvRMSE_LR}, 
+                ignore_index = True)
 
 
 ### Support Vector Machine
@@ -398,6 +417,9 @@ y_pred_SVR = model_SVR.predict(sc_X.fit_transform(X_test))
 y_test_SVR=sc_y.fit_transform(y_test.reshape(-1,1))
 y_pred_SVR2=sc_y.inverse_transform(y_pred_SVR) #transform back to my scale to understand it
 #y_pred_SVR = sc_y.inverse_transform(regr.predict(sc_X.fit_transform(X_test)))
+
+table1['y_pred_SVR']=y_pred_SVR
+
 plt.plot(y_test_SVR[1:200], label='testing')
 plt.plot(y_pred_SVR[1:200], label='predicted')
 plt.legend()
@@ -420,6 +442,8 @@ print(MAE_SVR, MSE_SVR, RMSE_SVR,cvRMSE_SVR)
 #RMSE: 0.45 still high
 #cvRMSE: 37% decreased a bit
 
+table = table.append({'Method' : 'Support Vector Machine', 'MAE' : MAE_SVR, 'MSE' : MSE_SVR, 'RMSE': RMSE_SVR, 'cvRMSE': cvRMSE_SVR}, 
+                ignore_index = True)
 
 
 ### Regression Desicion Tree
@@ -432,6 +456,8 @@ DT_model.fit(X_train, y_train)
 
 # Make predictions using the testing set
 y_pred_DT = DT_model.predict(X_test)
+
+table1['y_pred_DT']=y_pred_DT
 
 plt.plot(y_test[1:200], label='tested')
 plt.plot(y_pred_DT[1:200], label='predicted')
@@ -450,6 +476,9 @@ RMSE_DT= np.sqrt(metrics.mean_squared_error(y_test,y_pred_DT))
 cvRMSE_DT=RMSE_DT/np.mean(y_test)
 print(MAE_DT, MSE_DT, RMSE_DT,cvRMSE_DT)
 
+table = table.append({'Method' : 'Regression Decision Tree', 'MAE' : MAE_DT, 'MSE' : MSE_DT, 'RMSE': RMSE_DT, 'cvRMSE': cvRMSE_DT}, 
+                ignore_index = True)
+
 
 
 ### Random Forest
@@ -466,12 +495,17 @@ RF_model = RandomForestRegressor(**parameters)
 RF_model.fit(X_train, y_train)
 y_pred_RF = RF_model.predict(X_test)
 
+table1['y_pred_RF']=y_pred_RF
+
 #Evaluate errors
 MAE_RF=metrics.mean_absolute_error(y_test,y_pred_RF) 
 MSE_RF=metrics.mean_squared_error(y_test,y_pred_RF)  
 RMSE_RF= np.sqrt(metrics.mean_squared_error(y_test,y_pred_RF))
 cvRMSE_RF=RMSE_RF/np.mean(y_test)
 print(MAE_RF,MSE_RF,RMSE_RF,cvRMSE_RF)
+
+table = table.append({'Method' : 'Random Forest', 'MAE' : MAE_RF, 'MSE' : MSE_RF, 'RMSE': RMSE_RF, 'cvRMSE': cvRMSE_RF}, 
+                ignore_index = True)
 
 plt.plot(y_test[1:200], label='tested')
 plt.plot(y_pred_RF[1:200], label='predicted')
@@ -508,12 +542,17 @@ RFU_model = RandomForestRegressor(**parameters)
 RFU_model.fit(X_train_scaled, y_train.reshape(-1,1))
 y_pred_RFU = RFU_model.predict(X_test_scaled)
 
+table1['y_pred_RFU']=y_pred_RFU
+
 #Evaluate errors
 MAE_RFU=metrics.mean_absolute_error(y_test,y_pred_RFU) 
 MSE_RFU=metrics.mean_squared_error(y_test,y_pred_RFU)  
 RMSE_RFU= np.sqrt(metrics.mean_squared_error(y_test,y_pred_RFU))
 cvRMSE_RFU=RMSE_RFU/np.mean(y_test)
 print(MAE_RFU,MSE_RFU,RMSE_RFU,cvRMSE_RFU)
+
+table = table.append({'Method' : 'Random Forest Uniformized Data', 'MAE' : MAE_RFU, 'MSE' : MSE_RFU, 'RMSE': RMSE_RFU, 'cvRMSE': cvRMSE_RFU}, 
+                ignore_index = True)
 
 plt.plot(y_test[1:200], label='tested')
 plt.plot(y_pred_RFU[1:200], label='predicted')
@@ -538,11 +577,16 @@ GB_model = GradientBoostingRegressor()
 GB_model.fit(X_train, y_train)
 y_pred_GB =GB_model.predict(X_test)
 
+table1['y_pred_GB']=y_pred_GB
+
 MAE_GB=metrics.mean_absolute_error(y_test,y_pred_GB) 
 MSE_GB=metrics.mean_squared_error(y_test,y_pred_GB)  
 RMSE_GB= np.sqrt(metrics.mean_squared_error(y_test,y_pred_GB))
 cvRMSE_GB=RMSE_GB/np.mean(y_test)
 print(MAE_GB,MSE_GB,RMSE_GB,cvRMSE_GB)
+
+table = table.append({'Method' : 'Gradient Boosting', 'MAE' : MAE_GB, 'MSE' : MSE_GB, 'RMSE': RMSE_GB, 'cvRMSE': cvRMSE_GB}, 
+                ignore_index = True)
 
 plt.plot(y_test[1:200], label='tested')
 plt.plot(y_pred_GB[1:200], label='predicted')
@@ -567,11 +611,16 @@ XGB_model = XGBRegressor()
 XGB_model.fit(X_train, y_train)
 y_pred_XGB =XGB_model.predict(X_test)
 
+table1['y_pred_XGB']=y_pred_XGB
+
 MAE_XGB=metrics.mean_absolute_error(y_test,y_pred_XGB) 
 MSE_XGB=metrics.mean_squared_error(y_test,y_pred_XGB)  
 RMSE_XGB= np.sqrt(metrics.mean_squared_error(y_test,y_pred_XGB))
 cvRMSE_XGB=RMSE_XGB/np.mean(y_test)
 print(MAE_XGB,MSE_XGB,RMSE_XGB,cvRMSE_XGB)
+
+table = table.append({'Method' : 'Extreme Gradient Boosting', 'MAE' : MAE_XGB, 'MSE' : MSE_XGB, 'RMSE': RMSE_XGB, 'cvRMSE': cvRMSE_XGB}, 
+                ignore_index = True)
 
 plt.plot(y_test[1:200], label='tested')
 plt.plot(y_pred_XGB[1:200], label='predicted')
@@ -591,11 +640,16 @@ BT_model = BaggingRegressor()
 BT_model.fit(X_train, y_train)
 y_pred_BT =BT_model.predict(X_test)
 
+table1['y_pred_BT']=y_pred_BT
+
 MAE_BT=metrics.mean_absolute_error(y_test,y_pred_BT) 
 MSE_BT=metrics.mean_squared_error(y_test,y_pred_BT)  
 RMSE_BT= np.sqrt(metrics.mean_squared_error(y_test,y_pred_BT))
 cvRMSE_BT=RMSE_BT/np.mean(y_test)
 print(MAE_BT,MSE_BT,RMSE_BT,cvRMSE_BT)
+
+table = table.append({'Method' : 'Bootsrapping', 'MAE' : MAE_BT, 'MSE' : MSE_BT, 'RMSE': RMSE_BT, 'cvRMSE': cvRMSE_BT}, 
+                ignore_index = True)
 
 plt.plot(y_test[1:200], label='tested')
 plt.plot(y_pred_BT[1:200], label='predicted')
@@ -617,11 +671,16 @@ NN_model = MLPRegressor(hidden_layer_sizes=(5,5)) # we can change the hidden lay
 NN_model.fit(X_train,y_train)
 y_pred_NN = NN_model.predict(X_test)
 
+table1['y_pred_NN']=y_pred_NN
+
 MAE_NN=metrics.mean_absolute_error(y_test,y_pred_NN) 
 MSE_NN=metrics.mean_squared_error(y_test,y_pred_NN)  
 RMSE_NN= np.sqrt(metrics.mean_squared_error(y_test,y_pred_NN))
 cvRMSE_NN=RMSE_NN/np.mean(y_test)
 print(MAE_NN,MSE_NN,RMSE_NN,cvRMSE_NN)
+
+table = table.append({'Method' : 'Neural Networks', 'MAE' : MAE_NN, 'MSE' : MSE_NN, 'RMSE': RMSE_NN, 'cvRMSE': cvRMSE_NN}, 
+                ignore_index = True)
 
 plt.plot(y_test[1:200], label='tested')
 plt.plot(y_pred_NN[1:200], label='predicted')
@@ -632,6 +691,13 @@ plt.show()
 plt.scatter(y_test,y_pred_NN)
 plt.title('Neural Networks')
 plt.show()
+
+
+#save the y_pred table
+table1.to_csv('Result_csv/reg_table_res1.csv', encoding='utf-8', index=False)
+
+#save errors table
+table.to_csv('Result_csv/errors_table_res1.csv', encoding='utf-8', index=False)
 
 
 ######## Final Model: Random Forest #######################################
@@ -658,6 +724,10 @@ RMSE_RF= np.sqrt(metrics.mean_squared_error(y_test,y_pred_RF))
 cvRMSE_RF=RMSE_RF/np.mean(y_test)
 print(MAE_RF,MSE_RF,RMSE_RF,cvRMSE_RF)
 
+table3 = pd.DataFrame(columns = ['Trial', 'MAE', 'MSE', 'RMSE', 'cvRMSE'])
+table3 = table3.append({'Trial' : 1, 'MAE' : MAE_RF, 'MSE' : MSE_RF, 'RMSE': RMSE_RF, 'cvRMSE': cvRMSE_RF}, 
+                ignore_index = True)
+
 
 ## Trial 2: min_sample_leaf= 3  , n_estimators= 150, min_samples_split= 30 
 parameters = {'bootstrap': True,
@@ -679,6 +749,9 @@ RMSE_RF= np.sqrt(metrics.mean_squared_error(y_test,y_pred_RF))
 cvRMSE_RF=RMSE_RF/np.mean(y_test)
 print(MAE_RF,MSE_RF,RMSE_RF,cvRMSE_RF)
 
+table3 = table3.append({'Trial' : 2, 'MAE' : MAE_RF, 'MSE' : MSE_RF, 'RMSE': RMSE_RF, 'cvRMSE': cvRMSE_RF}, 
+                ignore_index = True)
+
 ## Trial 3: min_sample_leaf= 3  , n_estimators= 300, min_samples_split= 10, max_depth= 40 
 parameters = {'bootstrap': True,
               'min_samples_leaf': 3,
@@ -699,6 +772,12 @@ RMSE_RF= np.sqrt(metrics.mean_squared_error(y_test,y_pred_RF))
 cvRMSE_RF=RMSE_RF/np.mean(y_test)
 print(MAE_RF,MSE_RF,RMSE_RF,cvRMSE_RF)
 
+table3 = table3.append({'Trial' : 3, 'MAE' : MAE_RF, 'MSE' : MSE_RF, 'RMSE': RMSE_RF, 'cvRMSE': cvRMSE_RF}, 
+                ignore_index = True)
+
+
+#save trials table
+table3.to_csv('Result_csv/RF_table_res1.csv', encoding='utf-8', index=False)
 
 # Final Comments
 # It is important to highlight that some missing data were interpolated in order to fill the gap in data because for some of the machine learning models, it was not feasible to have nan values 
