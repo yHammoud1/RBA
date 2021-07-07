@@ -15,7 +15,6 @@ from sklearn.feature_selection import SelectKBest #selection method
 from sklearn.feature_selection import f_regression, mutual_info_regression #score matrix
 from sklearn.feature_selection import RFE
 from sklearn.linear_model import LinearRegression
-from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestRegressor
 
 
@@ -317,12 +316,360 @@ df['HDH']=np.maximum(0,df['AirTemp_C']-16) #max btwn temp and reference value (1
 df = df.interpolate()
 X=df.values
 Y=X[:,11]
-X=X[:,[0,1,2,3,5,6,7,8,9,10,12,13,14,15]]
+X=X[:,[0,1,2,3,4,5,6,7,8,9,10,12,13,14,15]]
 model = RandomForestRegressor()
 model.fit(X, Y)
-print(model.feature_importances_) # 2 most relevant features: Power hour 
+print(model.feature_importances_) # 2 most relevant features: Energy and Hour 
 
 
-#final decision of features: Power-1, Solar radiation, Temp, Hour, holiday, week day
-#df_model = df.drop(columns['RelativeHumidity', 'SurfacePressure_hPa', 'WindDirection10m', 'PrecipitableWater_kg/m2', 'logtemp', ])
+#final decision of features: Energy-1, Solar radiation, Temp, Hour, day of week
+df_model = df.drop(columns=['SnowDepth_LWE_cm', 'RelativeHumidity', 'SurfacePressure_hPa', 'WindDirection10m', 'PrecipitableWater_kg/m2', 'WindSpeed10m_m/s', 'temp2', 'LWE2', 'Prec2', 'HDH'])
+
+
+
+########## Regression Models #################################################
+## Split training and testing data
+#split according to several features
+X=df_model.values
+Y=X[:,0] #output is power
+X=X[:,[1,2,3,4,5]] #input are all the other columns
+
+from sklearn.model_selection import train_test_split
+#Split randomly
+#by default, it chooses randomly 75% of the data for training and 25% for testing
+X_train, X_test, y_train, y_test = train_test_split(X,Y)
+
+
+
+### Linear Regression
+from sklearn import  linear_model
+
+# Create linear regression object
+LR_model = linear_model.LinearRegression()
+
+# Train the model using the training sets
+LR_model.fit(X_train,y_train)
+
+# Make predictions using the testing set
+y_pred_LR = LR_model.predict(X_test)
+
+plt.plot(y_test[1:200], label='testing')
+plt.plot(y_pred_LR[1:200], label='predicted')
+plt.legend()
+plt.show()
+
+plt.scatter(y_test,y_pred_LR)
+#we can see that the predicted data always looks a bit underfit
+
+from sklearn import  metrics #MAE, RMSE, ...
+#Evaluate errors
+MAE_LR=metrics.mean_absolute_error(y_test,y_pred_LR) 
+MSE_LR=metrics.mean_squared_error(y_test,y_pred_LR)  
+RMSE_LR= np.sqrt(metrics.mean_squared_error(y_test,y_pred_LR))
+cvRMSE_LR=RMSE_LR/np.mean(y_test)
+print(MAE_LR, MSE_LR, RMSE_LR,cvRMSE_LR)
+
+#MAE= 0.32
+#MSE= 0.22: unit is KWh^2
+#RMSE= 0.47
+#cvRMSE: is a % from 0 to 1 (here 39% error btwn estimation and real value)
+
+
+
+### Support Vector Machine
+from sklearn.preprocessing import StandardScaler #to normalize the data bcz this method is so sensitive to the values of data
+#standardscaler: uses the standard normal distribution
+from sklearn.svm import SVR
+
+sc_X = StandardScaler() #for transforming the data
+sc_y = StandardScaler()
+X_train_SVR = sc_X.fit_transform(X_train)
+y_train_SVR = sc_y.fit_transform(y_train.reshape(-1,1)) #reshape is used bcz line vector becomes column vector
+
+#values close to 0 are avg consumption, between -1 and 1 are t=within the std dev from avg, others are very high or very low values
+
+model_SVR = SVR(kernel='rbf') #rbf: transforms the data using exponential function
+model_SVR.fit(X_train_SVR,y_train_SVR)
+
+y_pred_SVR = model_SVR.predict(sc_X.fit_transform(X_test))
+y_test_SVR=sc_y.fit_transform(y_test.reshape(-1,1))
+y_pred_SVR2=sc_y.inverse_transform(y_pred_SVR) #transform back to my scale to understand it
+#y_pred_SVR = sc_y.inverse_transform(regr.predict(sc_X.fit_transform(X_test)))
+plt.plot(y_test_SVR[1:200], label='testing')
+plt.plot(y_pred_SVR[1:200], label='predicted')
+plt.legend()
+plt.show()
+plt.plot(y_test[1:200], label='testing')
+plt.plot(y_pred_SVR2[1:200], label='predicted')
+plt.legend()
+
+MAE_SVR=metrics.mean_absolute_error(y_test,y_pred_SVR2) 
+MSE_SVR=metrics.mean_squared_error(y_test,y_pred_SVR2)  
+RMSE_SVR= np.sqrt(metrics.mean_squared_error(y_test,y_pred_SVR2))
+cvRMSE_SVR=RMSE_SVR/np.mean(y_test)
+print(MAE_SVR, MSE_SVR, RMSE_SVR,cvRMSE_SVR)
+#MAE: 0.28 lower error than before (but remember that this one is decieving)
+#MSE: 0.2 also decreased a lot
+#RMSE: 0.45 still high
+#cvRMSE: 37% decreased a bit
+
+
+
+### Regression Desicion Tree
+from sklearn.tree import DecisionTreeRegressor
+# Create Regression Decision Tree object
+DT_model= DecisionTreeRegressor()
+
+# Train the model using the training sets
+DT_model.fit(X_train, y_train)
+
+# Make predictions using the testing set
+y_pred_DT = DT_model.predict(X_test)
+
+plt.plot(y_test[1:200], label='tested')
+plt.plot(y_pred_DT[1:200], label='predicted')
+plt.legend()
+plt.show()
+plt.scatter(y_test,y_pred_DT)
+
+#Evaluate errors
+MAE_DT=metrics.mean_absolute_error(y_test,y_pred_DT) 
+MSE_DT=metrics.mean_squared_error(y_test,y_pred_DT)  
+RMSE_DT= np.sqrt(metrics.mean_squared_error(y_test,y_pred_DT))
+cvRMSE_DT=RMSE_DT/np.mean(y_test)
+print(MAE_DT, MSE_DT, RMSE_DT,cvRMSE_DT)
+
+
+
+### Random Forest
+from sklearn.ensemble import RandomForestRegressor
+parameters = {'bootstrap': True,
+              'min_samples_leaf': 3,
+              'n_estimators': 200, 
+              'min_samples_split': 15,
+              'max_features': 'sqrt',
+              'max_depth': 20,
+              'max_leaf_nodes': None}
+RF_model = RandomForestRegressor(**parameters)
+#RF_model = RandomForestRegressor()
+RF_model.fit(X_train, y_train)
+y_pred_RF = RF_model.predict(X_test)
+
+#Evaluate errors
+MAE_RF=metrics.mean_absolute_error(y_test,y_pred_RF) 
+MSE_RF=metrics.mean_squared_error(y_test,y_pred_RF)  
+RMSE_RF= np.sqrt(metrics.mean_squared_error(y_test,y_pred_RF))
+cvRMSE_RF=RMSE_RF/np.mean(y_test)
+print(MAE_RF,MSE_RF,RMSE_RF,cvRMSE_RF)
+
+plt.plot(y_test[1:200], label='tested')
+plt.plot(y_pred_RF[1:200], label='predicted')
+plt.legend()
+plt.show()
+plt.scatter(y_test,y_pred_RF)
+
+
+
+### Uniformized Data
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+# Fit only to the training data
+scaler.fit(X_train)
+
+# Now apply the transformations to the data:
+X_train_scaled = scaler.transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+## Random Forest Uniformized Data
+parameters = {'bootstrap': True,
+              'min_samples_leaf': 3,
+              'n_estimators': 100, 
+              'min_samples_split': 15,
+              'max_features': 'sqrt',
+              'max_depth': 10,
+              'max_leaf_nodes': None}
+
+RFU_model = RandomForestRegressor(**parameters)
+RFU_model.fit(X_train_scaled, y_train.reshape(-1,1))
+y_pred_RFU = RFU_model.predict(X_test_scaled)
+
+#Evaluate errors
+MAE_RFU=metrics.mean_absolute_error(y_test,y_pred_RFU) 
+MSE_RFU=metrics.mean_squared_error(y_test,y_pred_RFU)  
+RMSE_RFU= np.sqrt(metrics.mean_squared_error(y_test,y_pred_RFU))
+cvRMSE_RFU=RMSE_RFU/np.mean(y_test)
+print(MAE_RFU,MSE_RFU,RMSE_RFU,cvRMSE_RFU)
+
+plt.plot(y_test[1:200], label='tested')
+plt.plot(y_pred_RFU[1:200], label='predicted')
+plt.legend()
+plt.show()
+plt.scatter(y_test,y_pred_RFU)
+
+
+
+### Gradient Boosting
+from sklearn.ensemble import GradientBoostingRegressor
+
+#params = {'n_estimators': 500, 'max_depth': 4, 'min_samples_split': 2,
+#          'learning_rate': 0.01, 'loss': 'ls'}
+#GB_model = GradientBoostingRegressor(**params)
+
+GB_model = GradientBoostingRegressor()
+GB_model.fit(X_train, y_train)
+y_pred_GB =GB_model.predict(X_test)
+
+MAE_GB=metrics.mean_absolute_error(y_test,y_pred_GB) 
+MSE_GB=metrics.mean_squared_error(y_test,y_pred_GB)  
+RMSE_GB= np.sqrt(metrics.mean_squared_error(y_test,y_pred_GB))
+cvRMSE_GB=RMSE_GB/np.mean(y_test)
+print(MAE_GB,MSE_GB,RMSE_GB,cvRMSE_GB)
+
+plt.plot(y_test[1:200], label='tested')
+plt.plot(y_pred_GB[1:200], label='predicted')
+plt.legend()
+plt.show()
+plt.scatter(y_test,y_pred_GB)
+
+
+
+### Extreme Gradient Boosting
+from xgboost import XGBRegressor
+
+#params = {'n_estimators': 500, 'max_depth': 4, 'min_samples_split': 2,
+#          'learning_rate': 0.01, 'loss': 'ls'}
+#GB_model = GradientBoostingRegressor(**params)
+
+XGB_model = XGBRegressor()
+XGB_model.fit(X_train, y_train)
+y_pred_XGB =XGB_model.predict(X_test)
+
+MAE_XGB=metrics.mean_absolute_error(y_test,y_pred_XGB) 
+MSE_XGB=metrics.mean_squared_error(y_test,y_pred_XGB)  
+RMSE_XGB= np.sqrt(metrics.mean_squared_error(y_test,y_pred_XGB))
+cvRMSE_XGB=RMSE_XGB/np.mean(y_test)
+print(MAE_XGB,MSE_XGB,RMSE_XGB,cvRMSE_XGB)
+
+plt.plot(y_test[1:200], label='tested')
+plt.plot(y_pred_XGB[1:200], label='predicted')
+plt.legend()
+plt.show()
+plt.scatter(y_test,y_pred_XGB)
+
+
+
+### Bootstraping
+from sklearn.ensemble import BaggingRegressor
+
+BT_model = BaggingRegressor()
+BT_model.fit(X_train, y_train)
+y_pred_BT =BT_model.predict(X_test)
+
+MAE_BT=metrics.mean_absolute_error(y_test,y_pred_BT) 
+MSE_BT=metrics.mean_squared_error(y_test,y_pred_BT)  
+RMSE_BT= np.sqrt(metrics.mean_squared_error(y_test,y_pred_BT))
+cvRMSE_BT=RMSE_BT/np.mean(y_test)
+print(MAE_BT,MSE_BT,RMSE_BT,cvRMSE_BT)
+
+plt.plot(y_test[1:200], label='tested')
+plt.plot(y_pred_BT[1:200], label='predicted')
+plt.legend()
+plt.show()
+plt.scatter(y_test,y_pred_BT)
+
+
+
+
+### Neural Networks
+from sklearn.neural_network import MLPRegressor
+
+NN_model = MLPRegressor(hidden_layer_sizes=(5,5)) # we can change the hidden layer size to try which is better
+NN_model.fit(X_train,y_train)
+y_pred_NN = NN_model.predict(X_test)
+
+MAE_NN=metrics.mean_absolute_error(y_test,y_pred_NN) 
+MSE_NN=metrics.mean_squared_error(y_test,y_pred_NN)  
+RMSE_NN= np.sqrt(metrics.mean_squared_error(y_test,y_pred_NN))
+cvRMSE_NN=RMSE_NN/np.mean(y_test)
+print(MAE_NN,MSE_NN,RMSE_NN,cvRMSE_NN)
+
+plt.plot(y_test[1:200], label='tested')
+plt.plot(y_pred_NN[1:200], label='predicted')
+plt.legend()
+plt.show()
+plt.scatter(y_test,y_pred_NN)
+
+
+######## Final Model: Random Forest #######################################
+# Random forest and gradient boosing gave the best results 
+# --> will continue wil some trials to improve the results from random forest
+
+## Trial 1: min_sample_leaf= 6  , n_estimators= 100
+parameters = {'bootstrap': True,
+              'min_samples_leaf': 6,
+              'n_estimators': 100, 
+              'min_samples_split': 15,
+              'max_features': 'sqrt',
+              'max_depth': 20,
+              'max_leaf_nodes': None}
+RF_model = RandomForestRegressor(**parameters)
+#RF_model = RandomForestRegressor()
+RF_model.fit(X_train, y_train)
+y_pred_RF = RF_model.predict(X_test)
+
+#Evaluate errors
+MAE_RF=metrics.mean_absolute_error(y_test,y_pred_RF) 
+MSE_RF=metrics.mean_squared_error(y_test,y_pred_RF)  
+RMSE_RF= np.sqrt(metrics.mean_squared_error(y_test,y_pred_RF))
+cvRMSE_RF=RMSE_RF/np.mean(y_test)
+print(MAE_RF,MSE_RF,RMSE_RF,cvRMSE_RF)
+
+
+## Trial 2: min_sample_leaf= 3  , n_estimators= 150, min_samples_split= 30 
+parameters = {'bootstrap': True,
+              'min_samples_leaf': 3,
+              'n_estimators': 150, 
+              'min_samples_split': 30,
+              'max_features': 'sqrt',
+              'max_depth': 20,
+              'max_leaf_nodes': None}
+RF_model = RandomForestRegressor(**parameters)
+#RF_model = RandomForestRegressor()
+RF_model.fit(X_train, y_train)
+y_pred_RF = RF_model.predict(X_test)
+
+#Evaluate errors
+MAE_RF=metrics.mean_absolute_error(y_test,y_pred_RF) 
+MSE_RF=metrics.mean_squared_error(y_test,y_pred_RF)  
+RMSE_RF= np.sqrt(metrics.mean_squared_error(y_test,y_pred_RF))
+cvRMSE_RF=RMSE_RF/np.mean(y_test)
+print(MAE_RF,MSE_RF,RMSE_RF,cvRMSE_RF)
+
+## Trial 3: min_sample_leaf= 3  , n_estimators= 300, min_samples_split= 10, max_depth= 40 
+parameters = {'bootstrap': True,
+              'min_samples_leaf': 3,
+              'n_estimators': 300, 
+              'min_samples_split': 10,
+              'max_features': 'sqrt',
+              'max_depth': 40,
+              'max_leaf_nodes': None}
+RF_model = RandomForestRegressor(**parameters)
+#RF_model = RandomForestRegressor()
+RF_model.fit(X_train, y_train)
+y_pred_RF = RF_model.predict(X_test)
+
+#Evaluate errors
+MAE_RF=metrics.mean_absolute_error(y_test,y_pred_RF) 
+MSE_RF=metrics.mean_squared_error(y_test,y_pred_RF)  
+RMSE_RF= np.sqrt(metrics.mean_squared_error(y_test,y_pred_RF))
+cvRMSE_RF=RMSE_RF/np.mean(y_test)
+print(MAE_RF,MSE_RF,RMSE_RF,cvRMSE_RF)
+
+
+# Final Comments
+# It is important to highlight that some missing data were interpolated in order to fill the gap in data because for some of the machine learning models, it was not feasible to have nan values 
+# This might be a vital factor that moderates the quality of the model (all models in general are highly affected by the data quality)
+# and could be the reason for a cvRMSE that is not very low, respectively. 
+#Other interpolation methods could be used, or as mentioned at the beginning, the data could be left as nan and then finally predicted by the model along with the rest of the values that the method works to produce
+
 
