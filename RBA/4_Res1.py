@@ -225,7 +225,6 @@ fig.savefig('loadcurve_res1.png')
 
 
 
-
 ########### Feature Selection ######################################################
 #create new column called Energy-1: the energy of the previous hour
 df['Energy-1'] = df['Energy_res1'].shift(1)
