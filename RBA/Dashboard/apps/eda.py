@@ -86,13 +86,7 @@ layout= html.Div(children=[
                     options=[{"label": 'House 1', "value": 'z1'},
                              {"label": 'House 2', "value": 'z2'},
                              {"label": 'House 3', "value": 'z3'},
-                             {"label": 'House 4', "value": 'z4'},
-                             {"label": 'House 5', "value": 'z5'},
-                             {"label": 'House 6', "value": 'z6'},
-                             {"label": 'House 7', "value": 'z7'},
-                             {"label": 'House 8', "value": 'z8'},
-                             {"label": 'House 9', "value": 'z9'},
-                             {"label": 'House 10', "value": 'z10'}
+                             
                              
                     ],
                     value="z1",
@@ -117,19 +111,14 @@ layout= html.Div(children=[
             
             dcc.Dropdown(
                     id="dropdown-2",
-                    options=[{"label": 'House 1', "value": 'i1'},
-                             {"label": 'House 2', "value": 'i2'},
-                             {"label": 'House 3', "value": 'i3'},
+                    options=[
                              {"label": 'House 4', "value": 'i4'},
                              {"label": 'House 5', "value": 'i5'},
                              {"label": 'House 6', "value": 'i6'},
-                             {"label": 'House 7', "value": 'i7'},
-                             {"label": 'House 8', "value": 'i8'},
-                             {"label": 'House 9', "value": 'i9'},
-                             {"label": 'House 10', "value": 'i10'}
+                             
                              
                     ],
-                    value="i1",
+                    value="i4",
                 ),
             
              html.Div(children=[
@@ -151,19 +140,14 @@ layout= html.Div(children=[
             
             dcc.Dropdown(
                     id="dropdown-3",
-                    options=[{"label": 'House 1', "value": 'f1'},
-                             {"label": 'House 2', "value": 'f2'},
-                             {"label": 'House 3', "value": 'f3'},
-                             {"label": 'House 4', "value": 'f4'},
-                             {"label": 'House 5', "value": 'f5'},
-                             {"label": 'House 6', "value": 'f6'},
+                    options=[
                              {"label": 'House 7', "value": 'f7'},
                              {"label": 'House 8', "value": 'f8'},
                              {"label": 'House 9', "value": 'f9'},
-                             {"label": 'House 10', "value": 'f10'}
+                           
                              
                     ],
-                    value="f1",
+                    value="f7",
                 ),
             
              html.Div(children=[
@@ -227,7 +211,7 @@ def prepare_eda_graphs2(value):
         'layout': {
             'title': 'After removal by Z-score method '  
         } }, px.box(df_IQR4, x=df_IQR4['Energy_res4'])
-    elif (value == 'z5'):
+    elif (value == 'i5'):
         return {
         'data': [
             {'x': df_IQR5.Date, 'y': df_IQR5['Energy_res5'], 'type': 'scatter'},      
@@ -235,7 +219,7 @@ def prepare_eda_graphs2(value):
         'layout': {
             'title': 'After removal by Z-score method '  
         } }, px.box(df_IQR5, x=df_IQR5['Energy_res5'])
-    elif (value == 'z6'):
+    elif (value == 'i6'):
         return {
         'data': [
             {'x': df_IQR6.Date, 'y': df_IQR6['Energy_res6'], 'type': 'scatter'},      
