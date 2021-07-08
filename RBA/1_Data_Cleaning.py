@@ -127,3 +127,6 @@ all_data.to_csv('Proj3_clean_data_combined.csv', encoding='utf-8', index=True)
 # values, and it might be better not to provide misleading data to the models
 #We will later notice that the difference of this action in regards to the results of the 
 # models is very small.
+
+
+print(all_data.columns)
