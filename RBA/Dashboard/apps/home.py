@@ -18,3 +18,10 @@ table = pd.read_csv('house_charact.csv')
 table1 = dbc.Table.from_dataframe(table,bordered= True, dark= True, hover = True,responsive= True, striped= True )
 
 
+layout= html.Div(children=[
+    html.Br(),
+    html.Br(),
+    html.Br(),
+    html.Div(table1),
+    html.H6('Discussion here...')
+    ])
