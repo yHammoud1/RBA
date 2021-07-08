@@ -39,6 +39,7 @@ layout= html.Div(children=[
     html.Br(),
     html.Br(),
     html.Br(),
+    html.H4('Raw Energy Consumption Data of 10 Houses in Vancouver'),
     dcc.Tabs(id='tabs', value='tab-1', children=[
          dcc.Tab(label='Raw Data Plots', value='tab-1', id='tab1', children =[
             html.Div(children = [

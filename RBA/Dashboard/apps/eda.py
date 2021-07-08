@@ -16,17 +16,17 @@ import  plotly.express as px
 df_zscore1 = pd.read_csv('EDA_zscore1.csv')
 df_zscore2 = pd.read_csv('EDA_zscore2.csv')
 df_zscore3 = pd.read_csv('EDA_zscore3.csv')
-df_zscore4 = pd.read_csv('EDA_zscore4.csv')
-df_zscore5 = pd.read_csv('EDA_zscore5.csv')
-df_zscore6 = pd.read_csv('EDA_zscore6.csv')
-df_zscore7 = pd.read_csv('EDA_zscore7.csv')
-df_zscore8 = pd.read_csv('EDA_zscore8.csv')
-df_zscore9 = pd.read_csv('EDA_zscore9.csv')
-df_zscore10 = pd.read_csv('EDA_zscore10.csv')
+# df_zscore4 = pd.read_csv('EDA_zscore4.csv')
+# df_zscore5 = pd.read_csv('EDA_zscore5.csv')
+# df_zscore6 = pd.read_csv('EDA_zscore6.csv')
+# df_zscore7 = pd.read_csv('EDA_zscore7.csv')
+# df_zscore8 = pd.read_csv('EDA_zscore8.csv')
+# df_zscore9 = pd.read_csv('EDA_zscore9.csv')
+# df_zscore10 = pd.read_csv('EDA_zscore10.csv')
 
-# df_zscore1_opp = pd.read_csv('EDA_zscore1_opp.csv')
-# df_zscore2_opp = pd.read_csv('EDA_zscore2_opp.csv')
-# df_zscore3_opp = pd.read_csv('EDA_zscore3_opp.csv')
+df_zscore1_opp = pd.read_csv('EDA_zscore1_opp.csv')
+df_zscore2_opp = pd.read_csv('EDA_zscore2_opp.csv')
+df_zscore3_opp = pd.read_csv('EDA_zscore3_opp.csv')
 # df_zscore4_opp = pd.read_csv('EDA_zscore4_opp.csv')
 # df_zscore5_opp = pd.read_csv('EDA_zscore5_opp.csv')
 # df_zscore6_opp = pd.read_csv('EDA_zscore6_opp.csv')
@@ -35,23 +35,23 @@ df_zscore10 = pd.read_csv('EDA_zscore10.csv')
 # df_zscore9_opp = pd.read_csv('EDA_zscore9_opp.csv')
 # df_zscore10_opp = pd.read_csv('EDA_zscore10_opp.csv')
 
-df_IQR1 = pd.read_csv('EDA_IQR1.csv')
-df_IQR2 = pd.read_csv('EDA_IQR2.csv')
-df_IQR3 = pd.read_csv('EDA_IQR3.csv')
+# df_IQR1 = pd.read_csv('EDA_IQR1.csv')
+# df_IQR2 = pd.read_csv('EDA_IQR2.csv')
+# df_IQR3 = pd.read_csv('EDA_IQR3.csv')
 df_IQR4 = pd.read_csv('EDA_IQR4.csv')
 df_IQR5 = pd.read_csv('EDA_IQR5.csv')
 df_IQR6 = pd.read_csv('EDA_IQR6.csv')
-df_IQR7 = pd.read_csv('EDA_IQR7.csv')
-df_IQR8 = pd.read_csv('EDA_IQR8.csv')
-df_IQR9 = pd.read_csv('EDA_IQR9.csv')
-df_IQR10 = pd.read_csv('EDA_IQR10.csv')
+# df_IQR7 = pd.read_csv('EDA_IQR7.csv')
+# df_IQR8 = pd.read_csv('EDA_IQR8.csv')
+# df_IQR9 = pd.read_csv('EDA_IQR9.csv')
+# df_IQR10 = pd.read_csv('EDA_IQR10.csv')
 
 # df_IQR1_opp = pd.read_csv('EDA_IQR1_opp.csv')
 # df_IQR2_opp = pd.read_csv('EDA_IQR2_opp.csv')
 # df_IQR3_opp = pd.read_csv('EDA_IQR3_opp.csv')
-# df_IQR4_opp = pd.read_csv('EDA_IQR4_opp.csv')
-# df_IQR5_opp = pd.read_csv('EDA_IQR5_opp.csv')
-# df_IQR6_opp = pd.read_csv('EDA_IQR6_opp.csv')
+df_IQR4_opp = pd.read_csv('EDA_IQR4_opp.csv')
+df_IQR5_opp = pd.read_csv('EDA_IQR5_opp.csv')
+df_IQR6_opp = pd.read_csv('EDA_IQR6_opp.csv')
 # df_IQR7_opp = pd.read_csv('EDA_IQR7_opp.csv')
 # df_IQR8_opp = pd.read_csv('EDA_IQR8_opp.csv')
 # df_IQR9_opp = pd.read_csv('EDA_IQR9_opp.csv')
@@ -75,11 +75,13 @@ layout= html.Div(children=[
     html.Br(),
     html.Br(),
     html.Br(),
+    html.H4('Exploratory Data Analysis on Energy Data'),
     dcc.Tabs(id='tabs', value='tab-1', children=[
          dcc.Tab(label='Z-score Method', value='tab-1', id='tab1', children =[
              html.Div(children = [
             html.Br(),
-            html.H6('-------'),
+            html.H5('Removal of outliers by Z-score method'),
+            html.H6('The results of a sample of the houses can be viewed'),
             
             dcc.Dropdown(
                     id="dropdown-1",
@@ -107,7 +109,8 @@ layout= html.Div(children=[
          dcc.Tab(label='IQR Method', value='tab-2', id='tab2', children = [
               html.Div(children = [
             html.Br(),
-            html.H6('-------'),
+            html.H6('Removal of outliers by IQR method'),
+            html.H6('The results of a sample of the houses can be viewed'),
             
             dcc.Dropdown(
                     id="dropdown-2",
@@ -136,7 +139,10 @@ layout= html.Div(children=[
          dcc.Tab(label='Final Outliers Removal', value='tab-3', id='tab3', children = [
               html.Div(children = [
             html.Br(),
-            html.H6('-------'),
+            html.H5('Final Decision of outliers to be removed'),
+            html.H6('The plots show the data after the removal'),
+            html.H6('The results of a sample of the houses can be viewed'),
+            
             
             dcc.Dropdown(
                     id="dropdown-3",
@@ -174,27 +180,30 @@ def prepare_eda_graphs1(value):
     if (value == 'z1'): 
         return {
         'data': [
-            {'x': df_zscore1.Date, 'y': df_zscore1['Energy_res1'], 'type': 'scatter'},      
+            {'x': df_zscore1.Date, 'y': df_zscore1['Energy_res1'], 'type': 'scatter', 'name' : 'Correct Data'}, 
+            {'x': df_zscore1_opp.Date, 'y': df_zscore1_opp['Energy_res1'], 'type': 'scatter', 'name' : 'Outliers'},
         ],
         'layout': {
-            'title': 'After removal by Z-score method '  
-        } }, px.box(df_zscore1, x=df_zscore1['Energy_res1'])
+            'title': 'Outliers found by Z-score method '  
+        } }, px.box(df_zscore1, x=df_zscore1['Energy_res1'], title = 'Boxplot after outliers removal')
     elif (value == 'z2'):
         return {
         'data': [
-            {'x': df_zscore2.Date, 'y': df_zscore2['Energy_res2'], 'type': 'scatter'},      
+            {'x': df_zscore2.Date, 'y': df_zscore2['Energy_res2'], 'type': 'scatter', 'name' : 'Correct Data'}, 
+            {'x': df_zscore2_opp.Date, 'y': df_zscore2_opp['Energy_res2'], 'type': 'scatter', 'name' : 'Outliers'},
         ],
         'layout': {
-            'title': 'After removal by Z-score method '  
-        } }, px.box(df_zscore2, x=df_zscore2['Energy_res2'])
+            'title': 'Outliers found by Z-score method '  
+        } }, px.box(df_zscore2, x=df_zscore2['Energy_res2'], title = 'Boxplot after outliers removal')
     elif (value == 'z3'):
         return {
         'data': [
-            {'x': df_zscore3.Date, 'y': df_zscore3['Energy_res3'], 'type': 'scatter'},      
+            {'x': df_zscore3.Date, 'y': df_zscore3['Energy_res3'], 'type': 'scatter', 'name' : 'Correct Data'}, 
+            {'x': df_zscore3_opp.Date, 'y': df_zscore3_opp['Energy_res3'], 'type': 'scatter', 'name' : 'Outliers'},
         ],
         'layout': {
-            'title': 'After removal by Z-score method '  
-        } }, px.box(df_zscore3, x=df_zscore3['Energy_res3'])
+            'title': 'Outliers found Z-score method '  
+        } }, px.box(df_zscore3, x=df_zscore3['Energy_res3'], title = 'Boxplot after outliers removal')
     
  
          
@@ -206,27 +215,30 @@ def prepare_eda_graphs2(value):
     if (value == 'i4'): 
         return {
         'data': [
-            {'x': df_IQR4.Date, 'y': df_IQR4['Energy_res4'], 'type': 'scatter'},      
+            {'x': df_IQR4.Date, 'y': df_IQR4['Energy_res4'], 'type': 'scatter', 'name' : 'Correct Data'},
+            {'x': df_IQR4_opp.Date, 'y': df_IQR4_opp['Energy_res4'], 'type': 'scatter', 'name' : 'Outliers'},
         ],
         'layout': {
-            'title': 'After removal by Z-score method '  
-        } }, px.box(df_IQR4, x=df_IQR4['Energy_res4'])
+            'title': 'Outliers found IQR method '  
+        } }, px.box(df_IQR4, x=df_IQR4['Energy_res4'], title = 'Boxplot after outliers removal')
     elif (value == 'i5'):
         return {
         'data': [
-            {'x': df_IQR5.Date, 'y': df_IQR5['Energy_res5'], 'type': 'scatter'},      
+            {'x': df_IQR5.Date, 'y': df_IQR5['Energy_res5'], 'type': 'scatter', 'name' : 'Correct Data'}, 
+            {'x': df_IQR5_opp.Date, 'y': df_IQR5_opp['Energy_res5'], 'type': 'scatter', 'name' : 'Outliers'},
         ],
         'layout': {
-            'title': 'After removal by Z-score method '  
-        } }, px.box(df_IQR5, x=df_IQR5['Energy_res5'])
+            'title': 'Outliers found by IQR method '  
+        } }, px.box(df_IQR5, x=df_IQR5['Energy_res5'], title = 'Boxplot after outliers removal')
     elif (value == 'i6'):
         return {
         'data': [
-            {'x': df_IQR6.Date, 'y': df_IQR6['Energy_res6'], 'type': 'scatter'},      
+            {'x': df_IQR6.Date, 'y': df_IQR6['Energy_res6'], 'type': 'scatter', 'name' : 'Correct Data'},
+            {'x': df_IQR6_opp.Date, 'y': df_IQR6_opp['Energy_res6'], 'type': 'scatter', 'name' : 'Outliers'},
         ],
         'layout': {
-            'title': 'After removal by Z-score method '  
-        } }, px.box(df_IQR6, x=df_IQR6['Energy_res6'])
+            'title': 'Outliers found by IQR method '  
+        } }, px.box(df_IQR6, x=df_IQR6['Energy_res6'], title = 'Boxplot after outliers removal')
     
     
 @app.callback(
@@ -240,21 +252,21 @@ def prepare_eda_graphs3(value):
             {'x': df_EDA7_final.Date, 'y': df_EDA7_final['Energy_res7'], 'type': 'scatter'},      
         ],
         'layout': {
-            'title': 'After removal by Z-score method '  
-        } }, px.box(df_EDA7_final, x=df_EDA7_final['Energy_res7'])
+            'title': 'Final Outliers removal '  
+        } }, px.box(df_EDA7_final, x=df_EDA7_final['Energy_res7'], title = 'Boxplot after outliers removal')
     elif (value == 'f8'):
         return {
         'data': [
             {'x': df_EDA8_final.Date, 'y': df_EDA8_final['Energy_res8'], 'type': 'scatter'},      
         ],
         'layout': {
-            'title': 'After removal by Z-score method '  
-        } }, px.box(df_EDA8_final, x=df_EDA8_final['Energy_res8'])
+            'title': 'Final Outliers removal '  
+        } }, px.box(df_EDA8_final, x=df_EDA8_final['Energy_res8'], title = 'Boxplot after outliers removal')
     elif (value == 'f9'):
         return {
         'data': [
             {'x': df_EDA9_final.Date, 'y': df_EDA9_final['Energy_res9'], 'type': 'scatter'},      
         ],
         'layout': {
-            'title': 'After removal by Z-score method '  
-        } }, px.box(df_EDA9_final, x=df_EDA9_final['Energy_res9'])
+            'title': 'Final Outliers removal '  
+        } }, px.box(df_EDA9_final, x=df_EDA9_final['Energy_res9'], title = 'Boxplot after outliers removal')
