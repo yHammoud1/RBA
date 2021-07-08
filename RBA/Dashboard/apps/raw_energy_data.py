@@ -8,9 +8,9 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
-from app import app
-from dash.dependencies import Input, Output
 
+from dash.dependencies import Input, Output
+from app import app
 import pandas as pd
 import  plotly.express as px
 
@@ -29,63 +29,96 @@ layout= html.Div(children=[
     html.Br(),
     html.Br(),
     html.Br(),
-    dbc.Tabs(
-            [
-                dbc.Tab(label="Raw Data Plots", tab_id="tab-1"),
-                dbc.Tab(label="Raw Data Sample", tab_id="tab-2"),
-            ],
-            id="tabs",
-            active_tab="tab-1",
-        ),
-        html.Div(id="content"),
-    ]
-)
+    dcc.Tabs(id='tabs', value='tab-1', children=[
+         dcc.Tab(label='Raw Data Plots', value='tab-1'),
+         dcc.Tab(label='Raw Data Sample', value='tab-2'),
+     ]),
+    html.Div(id = 'content')
+            ])
+                
+
+
+#             dbc.FormGroup(
+#             [
+#                 dcc.Dropdown(
+#                     id="dropdown-1",
+#                     options=[{"label": i, "value": i} for i in df_raw_res.columns
+#                     ],
+#                     value="Energy_res1",
+#                 ),
+#             ]
+#         ),
+
+#          html.Div(children=[
+#           html.Div(
+#              dcc.Graph(id='raw-data'), style={'width': '50%', 'display': 'inline-block', 'padding': '0 20'}
+#               ),
+#           html.Div(
+#              dcc.Graph(id='boxplt-raw') , style={'width': '50%', 'display': 'inline-block', 'padding': '0 20'}
+#               ),
+#         ]
+#     ),
+# ]),
+    
+    
+#             dbc.FormGroup(
+#             [
+#                 dcc.Dropdown(
+#                     id="dropdown-1",
+#                     options=[{"label": i, "value": i} for i in df_raw_meteo.columns
+#                     ],
+#                     value="AirTemp_C",
+#                 ),
+#             ]
+#         ),
+
+#       html.Div(children=[
+#           html.Div(
+#         dcc.Graph(id='raw-data'), style={'width': '50%', 'display': 'inline-block', 'padding': '0 20'}
+#               ),
+#           html.Div(
+#           dcc.Graph(id='boxplt-raw') , style={'width': '50%', 'display': 'inline-block', 'padding': '0 20'}
+#               ),
+#         ]
+#     ),
+        
+#     ]
+# )
 
 @app.callback(
     Output('content', 'children'),
     [Input('tabs', 'value')])
 def show_content(value):
     if (value == 'tab-1'):
-        return { html.Div([
-            dbc.Card(
-                dbc.CardBody(
-                    [
-            dbc.FormGroup(
-            [
+        return html.Div(children = [
+           
                 dcc.Dropdown(
                     id="dropdown-1",
                     options=[{"label": i, "value": i} for i in df_raw_res.columns
                     ],
                     value="Energy_res1",
                 ),
-            ]
-        ),
+            
+            
 
-         html.Div(children=[
+          html.Div(children=[
           html.Div(
-             dcc.Graph(id='raw-data'), style={'width': '50%', 'display': 'inline-block', 'padding': '0 20'}
+              dcc.Graph(id='raw-data'), style={'width': '50%', 'display': 'inline-block', 'padding': '0 20'}
               ),
           html.Div(
-             dcc.Graph(id='boxplt-raw') , style={'width': '50%', 'display': 'inline-block', 'padding': '0 20'}
+              dcc.Graph(id='boxplt-raw') , style={'width': '50%', 'display': 'inline-block', 'padding': '0 20'}
               ),
-        ]
-    ),
-]),
-    
-    dbc.CardBody(
-        [
-            dbc.FormGroup(
-            [
-                dcc.Dropdown(
+                  ]
+                    ),
+                  
+          dcc.Dropdown(
                     id="dropdown-1",
                     options=[{"label": i, "value": i} for i in df_raw_meteo.columns
                     ],
                     value="AirTemp_C",
                 ),
-            ]
-        ),
-
-      html.Div(children=[
+      
+    html.Div(children=[
           html.Div(
         dcc.Graph(id='raw-data'), style={'width': '50%', 'display': 'inline-block', 'padding': '0 20'}
               ),
@@ -94,26 +127,55 @@ def show_content(value):
               ),
         ]
     ),
-]),
-    className="mt-3",
+       ] 
     )
-        ]) }
+
     
             
     elif (value == 'tab-2'):
-        return  html.Div([
-            dbc.Card(
-    dbc.CardBody(
-        [
-            html.P("This is tab 2!", className="card-text"),
-            dbc.Button("Don't click here", color="danger"),
+        return  html.Div(children = [
+           
+                dcc.Dropdown(
+                    id="dropdown-1",
+                    options=[{"label": i, "value": i} for i in df_raw_res.columns
+                    ],
+                    value="Energy_res1",
+                ),
+            
+            
+
+          html.Div(children=[
+          html.Div(
+              dcc.Graph(id='raw-data'), style={'width': '50%', 'display': 'inline-block', 'padding': '0 20'}
+              ),
+          html.Div(
+              dcc.Graph(id='boxplt-raw') , style={'width': '50%', 'display': 'inline-block', 'padding': '0 20'}
+              ),
+                  ]
+                    ),
+                  
+          dcc.Dropdown(
+                    id="dropdown-1",
+                    options=[{"label": i, "value": i} for i in df_raw_meteo.columns
+                    ],
+                    value="AirTemp_C",
+                ),
+      
+    html.Div(children=[
+          html.Div(
+        dcc.Graph(id='raw-data'), style={'width': '50%', 'display': 'inline-block', 'padding': '0 20'}
+              ),
+          html.Div(
+          dcc.Graph(id='boxplt-raw') , style={'width': '50%', 'display': 'inline-block', 'padding': '0 20'}
+              ),
         ]
     ),
-    className="mt-3",
-),
+       ] 
+    )
+    
 
-
-            ])
+    
+    
     
 
 @app.callback(
