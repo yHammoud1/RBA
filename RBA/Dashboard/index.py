@@ -19,6 +19,7 @@ app.layout = html.Div(children=[
         dcc.Location(id="url"),
         dbc.NavbarSimple(
             children=[
+                dbc.NavLink("Home", href="/home", active="exact"),
                 dbc.NavLink("Raw Energy Data", href="/raw_energy_data", active="exact"),
                 dbc.NavLink("EDA", href="/eda", active="exact"),
                 dbc.NavLink("Clustering", href="/clustering", active="exact"),
