@@ -6,11 +6,11 @@ Created on Wed Jul  7 21:11:38 2021
 """
 import dash_core_components as dcc
 import dash_html_components as html
-from dash.dependencies import Input, Output, State
+from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
 from app import app
-from apps import raw_energy_data
+from apps import raw_energy_data, home
 #eda, clustering, feature_engineering, forecast_models, best_forecast_model
 
 
@@ -58,7 +58,9 @@ def display_page(pathname):
     # elif pathname == '/best_forecast_model':
     #     return best_forecast_model.layout
     else:
-        return html.Img(style={'display': 'block','margin-left': 'auto','margin-right': 'auto'}, src='assets\main.png'),
+        return home.layout
+    
+    
        
 
 

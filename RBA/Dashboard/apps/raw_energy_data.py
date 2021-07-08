@@ -40,21 +40,8 @@ layout= html.Div(children=[
     html.Br(),
     html.Br(),
     dcc.Tabs(id='tabs', value='tab-1', children=[
-         dcc.Tab(label='Raw Data Plots', value='tab-1'),
-         dcc.Tab(label='Raw Data Sample', value='tab-2'),
-     ]),
-    html.Div(id = 'content')
-            ])
-                
-
-
-
-@app.callback(
-    Output('content', 'children'),
-    [Input('tabs', 'value')])
-def show_content(value):
-    if (value == 'tab-1'):
-        return html.Div(children = [
+         dcc.Tab(label='Raw Data Plots', value='tab-1', id='tab1', children =[
+            html.Div(children = [
             html.Br(),
             html.H6('Raw data of energy consumption for all houses by house number'),
            
@@ -64,10 +51,8 @@ def show_content(value):
                     ],
                     value="Energy_res1",
                 ),
-            
-            
-
-          html.Div(children=[
+             ]),
+            html.Div(children=[
           html.Div(
               dcc.Graph(id='raw-data-1'), style={'width': '50%', 'display': 'inline-block', 'padding': '0 20'}
               ),
@@ -76,8 +61,7 @@ def show_content(value):
               ),
                   ]
                     ),
-          
-          html.Br(),
+             html.Br(),
             html.H6('Raw meteo data avialable in the region of study'),
           dcc.Dropdown(
                     id="dropdown-2",
@@ -86,7 +70,7 @@ def show_content(value):
                     value="AirTemp_C",
                 ),
       
-    html.Div(children=[
+        html.Div(children=[
           html.Div(
         dcc.Graph(id='raw-data-2'), style={'width': '50%', 'display': 'inline-block', 'padding': '0 20'}
               ),
@@ -96,30 +80,38 @@ def show_content(value):
         ]
     ),
        ] 
-    )
-
-    
+    ),
             
-    elif (value == 'tab-2'):
-        return  html.Div(children = [
-            html.Br(),
-            html.H6('Sample of raw energy data and meteorological data'),
-                dcc.Dropdown(id='dropdown-3',
-                    options=[
-                        {'label': 'Energy data', 'value': 'table1'},
-                        {'label': 'Meteorological data', 'value': 'table2'}
-                        ],
-                    placeholder="Select a dataset to view a sample of the data",
-                    ),
-                html.Div(id='tables')
+         dcc.Tab(label='Raw Data Sample', value='tab-2', id='tab2', children = [
+    #          html.Div(children = [
+    #         html.Br(),
+    #         html.H6('Sample of raw energy data and meteorological data'),
+    #             dcc.Dropdown(id='dropdown-3',
+    #                 options=[
+    #                     {'label': 'Energy data', 'value': 'table1'},
+    #                     {'label': 'Meteorological data', 'value': 'table2'}
+    #                     ],
+    #                 #placeholder="Select a dataset to view a sample of the data",
+    #                 ),
+    #             html.Div(id='tables')
 
-       ] 
-    )
+    #    ] 
+    # )
+    html.Div(table1),
+    html.Div(table2)
     
+    
+             ]),
+     ]),
+    
+            ])
+                
 
-    
-    
-    
+
+
+ 
+
+        
 
 @app.callback(
     Output('raw-data-1', 'figure'),
@@ -148,11 +140,11 @@ def prepare_raw_graphs(value):
         } }, px.box(df_raw, x=value)
 
 
-@app.callback(
-    Output('tables', 'figure'),
-    [Input('dropdown-3', 'value')])
-def print_tables(value):
-     if (value == 'table1'):
-        return html.Div(table1),
-     elif (value == 'table2'):
-         return html.Div(table2)
+# @app.callback(
+#     Output('tables', 'children'),
+#     [Input('dropdown-3', 'value')])
+# def print_tables(value):
+#      if (value == 'table1'):
+#         return html.Div(print('hello'),table1),
+#      elif (value == 'table2'):
+#          return html.Div(print('hello2'),table2)
