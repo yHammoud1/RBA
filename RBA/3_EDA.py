@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sb
-
+from functools import reduce
 
 
 df = pd.read_csv('Proj3_clean_data_combined.csv', parse_dates=['Date'])
@@ -194,50 +194,130 @@ df8.to_csv('Clean_data/res8.csv', encoding='utf-8', index=True)
 df9.to_csv('Clean_data/res9.csv', encoding='utf-8', index=True)
 df10.to_csv('Clean_data/res10.csv', encoding='utf-8', index=True)
 
+#save the same above data but without the meteo data (only for dashboard use in EDA tab)
+df11 = df1.drop(columns=['Day of Week', 'AirTemp_C',
+       'GlobalSolarRad_W/m2', 'PrecipitableWater_kg/m2', 'RelativeHumidity',
+       'SnowDepth_LWE_cm', 'SurfacePressure_hPa', 'WindDirection10m',
+       'WindSpeed10m_m/s', 'Hour'])
+df21 = df1.drop(columns=['Day of Week', 'AirTemp_C',
+       'GlobalSolarRad_W/m2', 'PrecipitableWater_kg/m2', 'RelativeHumidity',
+       'SnowDepth_LWE_cm', 'SurfacePressure_hPa', 'WindDirection10m',
+       'WindSpeed10m_m/s', 'Hour'])
+df31 = df1.drop(columns=['Day of Week', 'AirTemp_C',
+       'GlobalSolarRad_W/m2', 'PrecipitableWater_kg/m2', 'RelativeHumidity',
+       'SnowDepth_LWE_cm', 'SurfacePressure_hPa', 'WindDirection10m',
+       'WindSpeed10m_m/s', 'Hour'])
+df41 = df1.drop(columns=['Day of Week', 'AirTemp_C',
+       'GlobalSolarRad_W/m2', 'PrecipitableWater_kg/m2', 'RelativeHumidity',
+       'SnowDepth_LWE_cm', 'SurfacePressure_hPa', 'WindDirection10m',
+       'WindSpeed10m_m/s', 'Hour'])
+df51 = df1.drop(columns=['Day of Week', 'AirTemp_C',
+       'GlobalSolarRad_W/m2', 'PrecipitableWater_kg/m2', 'RelativeHumidity',
+       'SnowDepth_LWE_cm', 'SurfacePressure_hPa', 'WindDirection10m',
+       'WindSpeed10m_m/s', 'Hour'])
+df61 = df1.drop(columns=['Day of Week', 'AirTemp_C',
+       'GlobalSolarRad_W/m2', 'PrecipitableWater_kg/m2', 'RelativeHumidity',
+       'SnowDepth_LWE_cm', 'SurfacePressure_hPa', 'WindDirection10m',
+       'WindSpeed10m_m/s', 'Hour'])
+df71 = df1.drop(columns=['Day of Week', 'AirTemp_C',
+       'GlobalSolarRad_W/m2', 'PrecipitableWater_kg/m2', 'RelativeHumidity',
+       'SnowDepth_LWE_cm', 'SurfacePressure_hPa', 'WindDirection10m',
+       'WindSpeed10m_m/s', 'Hour'])
+df81 = df1.drop(columns=['Day of Week', 'AirTemp_C',
+       'GlobalSolarRad_W/m2', 'PrecipitableWater_kg/m2', 'RelativeHumidity',
+       'SnowDepth_LWE_cm', 'SurfacePressure_hPa', 'WindDirection10m',
+       'WindSpeed10m_m/s', 'Hour'])
+df91 = df1.drop(columns=['Day of Week', 'AirTemp_C',
+       'GlobalSolarRad_W/m2', 'PrecipitableWater_kg/m2', 'RelativeHumidity',
+       'SnowDepth_LWE_cm', 'SurfacePressure_hPa', 'WindDirection10m',
+       'WindSpeed10m_m/s', 'Hour'])
+df101 = df1.drop(columns=['Day of Week', 'AirTemp_C',
+       'GlobalSolarRad_W/m2', 'PrecipitableWater_kg/m2', 'RelativeHumidity',
+       'SnowDepth_LWE_cm', 'SurfacePressure_hPa', 'WindDirection10m',
+       'WindSpeed10m_m/s', 'Hour'])
+
+#these are the final eda results
+df11.to_csv('Dashboard/res11.csv', encoding='utf-8', index=True)
+df21.to_csv('Dashboard/res21.csv', encoding='utf-8', index=True)
+df31.to_csv('Dashboard/res31.csv', encoding='utf-8', index=True)
+df41.to_csv('Dashboard/res41.csv', encoding='utf-8', index=True)
+df51.to_csv('Dashboard/res51.csv', encoding='utf-8', index=True)
+df61.to_csv('Dashboard/res61.csv', encoding='utf-8', index=True)
+df71.to_csv('Dashboard/res71.csv', encoding='utf-8', index=True)
+df81.to_csv('Dashboard/res81.csv', encoding='utf-8', index=True)
+df91.to_csv('Dashboard/res91.csv', encoding='utf-8', index=True)
+df101.to_csv('Dashboard/res101.csv', encoding='utf-8', index=True)
+
+
 
 #save the zscore data for the dashboard
-dfz1.to_csv('Result_csv/EDA_zscore1.csv', encoding='utf-8', index=True)
-dfz2.to_csv('Result_csv/EDA_zscore2.csv', encoding='utf-8', index=True)
-dfz3.to_csv('Result_csv/EDA_zscore3.csv', encoding='utf-8', index=True)
-dfz4.to_csv('Result_csv/EDA_zscore4.csv', encoding='utf-8', index=True)
-dfz5.to_csv('Result_csv/EDA_zscore5.csv', encoding='utf-8', index=True)
-dfz6.to_csv('Result_csv/EDA_zscore6.csv', encoding='utf-8', index=True)
-dfz7.to_csv('Result_csv/EDA_zscore7.csv', encoding='utf-8', index=True)
-dfz8.to_csv('Result_csv/EDA_zscore8.csv', encoding='utf-8', index=True)
-dfz9.to_csv('Result_csv/EDA_zscore9.csv', encoding='utf-8', index=True)
-dfz10.to_csv('Result_csv/EDA_zscore10.csv', encoding='utf-8', index=True)
+dfz1 = dfz1[['Energy_res1']]
+dfz2 = dfz2[['Energy_res2']]
+dfz3 = dfz3[['Energy_res3']]
+dfz4 = dfz4[['Energy_res4']]
+dfz5 = dfz5[['Energy_res5']]
+dfz6 = dfz6[['Energy_res6']]
+dfz7 = dfz7[['Energy_res7']]
+dfz8 = dfz8[['Energy_res8']]
+dfz9 = dfz9[['Energy_res9']]
+dfz10 = dfz10[['Energy_res10']]
 
-dfz1opp.to_csv('Result_csv/EDA_zscore1_opp.csv', encoding='utf-8', index=True)
-dfz2opp.to_csv('Result_csv/EDA_zscore2_opp.csv', encoding='utf-8', index=True)
-dfz3opp.to_csv('Result_csv/EDA_zscore3_opp.csv', encoding='utf-8', index=True)
-dfz4opp.to_csv('Result_csv/EDA_zscore4_opp.csv', encoding='utf-8', index=True)
-dfz5opp.to_csv('Result_csv/EDA_zscore5_opp.csv', encoding='utf-8', index=True)
-dfz6opp.to_csv('Result_csv/EDA_zscore6_opp.csv', encoding='utf-8', index=True)
-dfz7opp.to_csv('Result_csv/EDA_zscore7_opp.csv', encoding='utf-8', index=True)
-dfz8opp.to_csv('Result_csv/EDA_zscore8_opp.csv', encoding='utf-8', index=True)
-dfz9opp.to_csv('Result_csv/EDA_zscore9_opp.csv', encoding='utf-8', index=True)
-dfz10opp.to_csv('Result_csv/EDA_zscore10_opp.csv', encoding='utf-8', index=True)
+
+dfz1.to_csv('Dashboard/EDA_zscore1.csv', encoding='utf-8', index=True)
+dfz2.to_csv('Dashboard/EDA_zscore2.csv', encoding='utf-8', index=True)
+dfz3.to_csv('Dashboard/EDA_zscore3.csv', encoding='utf-8', index=True)
+dfz4.to_csv('Dashboard/EDA_zscore4.csv', encoding='utf-8', index=True)
+dfz5.to_csv('Dashboard/EDA_zscore5.csv', encoding='utf-8', index=True)
+dfz6.to_csv('Dashboard/EDA_zscore6.csv', encoding='utf-8', index=True)
+dfz7.to_csv('Dashboard/EDA_zscore7.csv', encoding='utf-8', index=True)
+dfz8.to_csv('Dashboard/EDA_zscore8.csv', encoding='utf-8', index=True)
+dfz9.to_csv('Dashboard/EDA_zscore9.csv', encoding='utf-8', index=True)
+dfz10.to_csv('Dashboard/EDA_zscore10.csv', encoding='utf-8', index=True)
+
+# dfz1opp.to_csv('Dashboard/EDA_zscore1_opp.csv', encoding='utf-8', index=True)
+# dfz2opp.to_csv('Dashboard/EDA_zscore2_opp.csv', encoding='utf-8', index=True)
+# dfz3opp.to_csv('Dashboard/EDA_zscore3_opp.csv', encoding='utf-8', index=True)
+# dfz4opp.to_csv('Dashboard/EDA_zscore4_opp.csv', encoding='utf-8', index=True)
+# dfz5opp.to_csv('Dashboard/EDA_zscore5_opp.csv', encoding='utf-8', index=True)
+# dfz6opp.to_csv('Dashboard/EDA_zscore6_opp.csv', encoding='utf-8', index=True)
+# dfz7opp.to_csv('Dashboard/EDA_zscore7_opp.csv', encoding='utf-8', index=True)
+# dfz8opp.to_csv('Dashboard/EDA_zscore8_opp.csv', encoding='utf-8', index=True)
+# dfz9opp.to_csv('Dashboard/EDA_zscore9_opp.csv', encoding='utf-8', index=True)
+# dfz10opp.to_csv('Dashboard/EDA_zscore10_opp.csv', encoding='utf-8', index=True)
 
 
 #save IQR data for dashboard
-df_IQR_1.to_csv('Result_csv/EDA_IQR1.csv', encoding='utf-8', index=True)
-df_IQR_2.to_csv('Result_csv/EDA_IQR2.csv', encoding='utf-8', index=True)
-df_IQR_3.to_csv('Result_csv/EDA_IQR3.csv', encoding='utf-8', index=True)
-df_IQR_4.to_csv('Result_csv/EDA_IQR4.csv', encoding='utf-8', index=True)
-df_IQR_5.to_csv('Result_csv/EDA_IQR5.csv', encoding='utf-8', index=True)
-df_IQR_6.to_csv('Result_csv/EDA_IQR6.csv', encoding='utf-8', index=True)
-df_IQR_7.to_csv('Result_csv/EDA_IQR7.csv', encoding='utf-8', index=True)
-df_IQR_8.to_csv('Result_csv/EDA_IQR8.csv', encoding='utf-8', index=True)
-df_IQR_9.to_csv('Result_csv/EDA_IQR9.csv', encoding='utf-8', index=True)
-df_IQR_10.to_csv('Result_csv/EDA_IQR10.csv', encoding='utf-8', index=True)
 
-df_IQR1_opp.to_csv('Result_csv/EDA_IQR1_opp.csv', encoding='utf-8', index=True)
-df_IQR2_opp.to_csv('Result_csv/EDA_IQR2_opp.csv', encoding='utf-8', index=True)
-df_IQR3_opp.to_csv('Result_csv/EDA_IQR3_opp.csv', encoding='utf-8', index=True)
-df_IQR4_opp.to_csv('Result_csv/EDA_IQR4_opp.csv', encoding='utf-8', index=True)
-df_IQR5_opp.to_csv('Result_csv/EDA_IQR5_opp.csv', encoding='utf-8', index=True)
-df_IQR6_opp.to_csv('Result_csv/EDA_IQR6_opp.csv', encoding='utf-8', index=True)
-df_IQR7_opp.to_csv('Result_csv/EDA_IQR7_opp.csv', encoding='utf-8', index=True)
-df_IQR8_opp.to_csv('Result_csv/EDA_IQR8_opp.csv', encoding='utf-8', index=True)
-df_IQR9_opp.to_csv('Result_csv/EDA_IQR9_opp.csv', encoding='utf-8', index=True)
-df_IQR10_opp.to_csv('Result_csv/EDA_IQR10_opp.csv', encoding='utf-8', index=True)
+df_IQR_1 = df_IQR_1[['Energy_res1']]
+df_IQR_2 = df_IQR_2[['Energy_res2']]
+df_IQR_3 = df_IQR_3[['Energy_res3']]
+df_IQR_4 = df_IQR_4[['Energy_res4']]
+df_IQR_5 = df_IQR_5[['Energy_res5']]
+df_IQR_6 = df_IQR_6[['Energy_res6']]
+df_IQR_7 = df_IQR_7[['Energy_res7']]
+df_IQR_8 = df_IQR_8[['Energy_res8']]
+df_IQR_9 = df_IQR_9[['Energy_res9']]
+df_IQR_10 = df_IQR_10[['Energy_res10']]
+
+
+df_IQR_1.to_csv('Dashboard/EDA_IQR1.csv', encoding='utf-8', index=True)
+df_IQR_2.to_csv('Dashboard/EDA_IQR2.csv', encoding='utf-8', index=True)
+df_IQR_3.to_csv('Dashboard/EDA_IQR3.csv', encoding='utf-8', index=True)
+df_IQR_4.to_csv('Dashboard/EDA_IQR4.csv', encoding='utf-8', index=True)
+df_IQR_5.to_csv('Dashboard/EDA_IQR5.csv', encoding='utf-8', index=True)
+df_IQR_6.to_csv('Dashboard/EDA_IQR6.csv', encoding='utf-8', index=True)
+df_IQR_7.to_csv('Dashboard/EDA_IQR7.csv', encoding='utf-8', index=True)
+df_IQR_8.to_csv('Dashboard/EDA_IQR8.csv', encoding='utf-8', index=True)
+df_IQR_9.to_csv('Dashboard/EDA_IQR9.csv', encoding='utf-8', index=True)
+df_IQR_10.to_csv('Dashboard/EDA_IQR10.csv', encoding='utf-8', index=True)
+
+# df_IQR1_opp.to_csv('Dashboard/EDA_IQR1_opp.csv', encoding='utf-8', index=True)
+# df_IQR2_opp.to_csv('Dashboard/EDA_IQR2_opp.csv', encoding='utf-8', index=True)
+# df_IQR3_opp.to_csv('Dashboard/EDA_IQR3_opp.csv', encoding='utf-8', index=True)
+# df_IQR4_opp.to_csv('Dashboard/EDA_IQR4_opp.csv', encoding='utf-8', index=True)
+# df_IQR5_opp.to_csv('Dashboard/EDA_IQR5_opp.csv', encoding='utf-8', index=True)
+# df_IQR6_opp.to_csv('Dashboard/EDA_IQR6_opp.csv', encoding='utf-8', index=True)
+# df_IQR7_opp.to_csv('Dashboard/EDA_IQR7_opp.csv', encoding='utf-8', index=True)
+# df_IQR8_opp.to_csv('Dashboard/EDA_IQR8_opp.csv', encoding='utf-8', index=True)
+# df_IQR9_opp.to_csv('Dashboard/EDA_IQR9_opp.csv', encoding='utf-8', index=True)
+# df_IQR10_opp.to_csv('Dashboard/EDA_IQR10_opp.csv', encoding='utf-8', index=True)

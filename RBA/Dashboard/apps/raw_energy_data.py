@@ -30,9 +30,9 @@ table_raw_res = df_raw.drop(columns=['Day of Week', 'AirTemp_C',
 
 table_raw_meteo = df_raw.drop(columns=['Energy_res1', 'Energy_res2', 'Energy_res3', 'Energy_res4', 'Energy_res5', 'Energy_res6', 'Energy_res7', 'Energy_res8', 'Energy_res9', 'Energy_res10'])
 
-table1 = dbc.Table.from_dataframe(table_raw_res,bordered= True, dark= True, hover = True,responsive= True, striped= True )
+table1 = dbc.Table.from_dataframe(table_raw_res[1:6],bordered= True, dark= False, hover = True,responsive= True, striped= True )
 
-table2 = dbc.Table.from_dataframe(table_raw_meteo,bordered= True, dark= False, hover = True,responsive= True, striped= True )
+table2 = dbc.Table.from_dataframe(table_raw_meteo[1:6],bordered= True, dark= False, hover = True,responsive= True, striped= True )
 
 
 layout= html.Div(children=[
@@ -83,22 +83,22 @@ layout= html.Div(children=[
     ),
             
          dcc.Tab(label='Raw Data Sample', value='tab-2', id='tab2', children = [
-    #          html.Div(children = [
-    #         html.Br(),
-    #         html.H6('Sample of raw energy data and meteorological data'),
-    #             dcc.Dropdown(id='dropdown-3',
-    #                 options=[
-    #                     {'label': 'Energy data', 'value': 'table1'},
-    #                     {'label': 'Meteorological data', 'value': 'table2'}
-    #                     ],
-    #                 #placeholder="Select a dataset to view a sample of the data",
-    #                 ),
-    #             html.Div(id='tables')
+              html.Div(children = [
+            html.Br(),
+            html.H6('Sample of raw energy data and meteorological data'),
+                dcc.Dropdown(id='dropdown-3',
+                    options=[
+                        {'label': 'Energy data', 'value': 'table1'},
+                        {'label': 'Meteorological data', 'value': 'table2'}
+                        ],
+                    placeholder="Select a dataset to view a sample of the data",
+                    ),
+                html.Br(),
+                html.Br(),
+                html.Div(id='tables')
 
-    #    ] 
-    # )
-    html.Div(table1),
-    html.Div(table2)
+        ] 
+    )
     
     
              ]),
@@ -140,11 +140,11 @@ def prepare_raw_graphs(value):
         } }, px.box(df_raw, x=value)
 
 
-# @app.callback(
-#     Output('tables', 'children'),
-#     [Input('dropdown-3', 'value')])
-# def print_tables(value):
-#      if (value == 'table1'):
-#         return html.Div(print('hello'),table1),
-#      elif (value == 'table2'):
-#          return html.Div(print('hello2'),table2)
+@app.callback(
+    Output('tables', 'children'),
+    [Input('dropdown-3', 'value')])
+def print_tables(value):
+      if (value == 'table1'):
+        return html.Div(table1),
+      elif (value == 'table2'):
+          return html.Div(table2)
