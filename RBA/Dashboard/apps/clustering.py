@@ -9,19 +9,33 @@ import plotly.graph_objs as go
 from sklearn.cluster import KMeans
 from dash.dependencies import Input, Output
 
-df_kmeans1_res1= pd.read_csv('../../Result_csv/Cluster_kmeans1_res1.csv')
-df_kmeans1_res3= pd.read_csv('../../Result_csv/Cluster_kmeans1_res3.csv')
-df_kmeans1_res5= pd.read_csv('../../Result_csv/Cluster_kmeans1_res5.csv')
-df_kmeans1_res7= pd.read_csv('../../Result_csv/Cluster_kmeans1_res7.csv')
-df_kmeans1_res9= pd.read_csv('../../Result_csv/Cluster_kmeans1_res9.csv')
-df_kmeans1_res10= pd.read_csv('../../Result_csv/Cluster_kmeans1_res10.csv')
+df_kmeans1_res1= pd.read_csv('../Result_csv/Cluster_kmeans1_res1.csv')
+df_kmeans1_res3= pd.read_csv('../Result_csv/Cluster_kmeans1_res3.csv')
+df_kmeans1_res5= pd.read_csv('../Result_csv/Cluster_kmeans1_res5.csv')
+df_kmeans1_res7= pd.read_csv('../Result_csv/Cluster_kmeans1_res7.csv')
+df_kmeans1_res9= pd.read_csv('../Result_csv/Cluster_kmeans1_res9.csv')
+df_kmeans1_res10= pd.read_csv('../Result_csv/Cluster_kmeans1_res10.csv')
 
-df_kmeans2_res1= pd.read_csv('../../Result_csv/Cluster_kmeans2_res1.csv')
-df_kmeans2_res3= pd.read_csv('../../Result_csv/Cluster_kmeans2_res3.csv')
-df_kmeans2_res5= pd.read_csv('../../Result_csv/Cluster_kmeans2_res5.csv')
-df_kmeans2_res7= pd.read_csv('../../Result_csv/Cluster_kmeans2_res7.csv')
-df_kmeans2_res9= pd.read_csv('../../Result_csv/Cluster_kmeans2_res9.csv')
-df_kmeans2_res10= pd.read_csv('../../Result_csv/Cluster_kmeans2_res10.csv')
+df_kmeans2_res1= pd.read_csv('../Result_csv/Cluster_kmeans2_res1.csv')
+df_kmeans2_res3= pd.read_csv('../Result_csv/Cluster_kmeans2_res3.csv')
+df_kmeans2_res5= pd.read_csv('../Result_csv/Cluster_kmeans2_res5.csv')
+df_kmeans2_res7= pd.read_csv('../Result_csv/Cluster_kmeans2_res7.csv')
+df_kmeans2_res9= pd.read_csv('../Result_csv/Cluster_kmeans2_res9.csv')
+df_kmeans2_res10= pd.read_csv('../Result_csv/Cluster_kmeans2_res10.csv')
+
+df_kmeans1_res1 = df_kmeans1_res1.rename(columns={'Energy_res1':'Energy_res'})
+df_kmeans1_res3 = df_kmeans1_res3.rename(columns={'Energy_res3':'Energy_res'})
+df_kmeans1_res5 = df_kmeans1_res5.rename(columns={'Energy_res5':'Energy_res'})
+df_kmeans1_res7 = df_kmeans1_res7.rename(columns={'Energy_res7':'Energy_res'})
+df_kmeans1_res9 = df_kmeans1_res9.rename(columns={'Energy_res9':'Energy_res'})
+df_kmeans1_res10 = df_kmeans1_res10.rename(columns={'Energy_res10':'Energy_res'})
+
+df_kmeans2_res1 = df_kmeans2_res1.rename(columns={'Energy_res1':'Energy_res'})
+df_kmeans2_res3 = df_kmeans2_res3.rename(columns={'Energy_res3':'Energy_res'})
+df_kmeans2_res5 = df_kmeans2_res5.rename(columns={'Energy_res5':'Energy_res'})
+df_kmeans2_res7 = df_kmeans2_res7.rename(columns={'Energy_res7':'Energy_res'})
+df_kmeans2_res9 = df_kmeans2_res9.rename(columns={'Energy_res9':'Energy_res'})
+df_kmeans2_res10 = df_kmeans2_res10.rename(columns={'Energy_res10':'Energy_res'})
 
 controls = dbc.Card(
     [
@@ -31,9 +45,8 @@ controls = dbc.Card(
                 dcc.Dropdown(
                     id="x-variable",
                     options=[
-                        {"label": 'Energy', "value":'Energy_res' },
-                        {"label": 'Hour', "value":'Hour' }, 
-                        {"label": 'Week Day', "value":'Week Day' } 
+                        {"label": 'Energy', "value":'Energy_res' }
+                         
                     ],
                     value="Energy_res",
                 ),
@@ -45,10 +58,12 @@ controls = dbc.Card(
                 dcc.Dropdown(
                     id="y-variable",
                     options=[
-                        {"label": 'Temperature', "value": 'temp_C' },
-                        {"label": 'Energy', "value":'Energy_res' }
+                        {"label": 'Temperature', "value":'AirTemp_C' },
+                        {"label": 'Hour', "value":'Hour' }, 
+                        {"label": 'Week Day', "value":'Day of Week' }
+                        
                     ],
-                    value="temp_C",
+                    value="AirTemp_C",
                 ),
             ]
         ),
@@ -77,11 +92,11 @@ controls1 = dbc.Card(
                 dcc.Dropdown(
                     id="y-variable1",
                     options=[
-                        {"label": 'Relative Humidity', "value": 'HR' },
-                        {"label": 'Wind Speed', "value":'windspped' },
-                        {"label": 'Solar Radiation', "value":'solarRad' },
+                        {"label": 'Relative Humidity', "value": 'RelativeHumidity' },
+                        {"label": 'Wind Speed', "value":'WindSpeed10m_m/s' },
+                        {"label": 'Solar Radiation', "value":'GlobalSolarRad_W/m2' },
                     ],
-                    value="HR",
+                    value="RelativeHumidity",
                 ),
             ]
         ),
@@ -272,7 +287,8 @@ def make_graph(x, y, z):
 @app.callback(
     Output('cluster-graph2', 'figure'),
     [Input('x-variable1', 'value'),
-    Input('y-variable1', 'value')])
+    Input('y-variable1', 'value'),
+    Input('radio1', 'value')])
 def make_graph1(x, y, z):
     if (z == 'house1'):
         km = KMeans(max(3, 1))
