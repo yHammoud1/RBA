@@ -114,7 +114,6 @@ layout=html.Div(children=[
          dcc.Tab(label='Kmeans', value='tab-1', id='kmeanstab', children=[
              html.Div([
        html.H5('Clustering using Kmeans: trials with sets of different parameters'),
-       html.H6('Optimal number of clusters --'),
         html.Br(), 
        
             dcc.RadioItems( id= 'radio1',
@@ -126,11 +125,13 @@ layout=html.Div(children=[
         {'label': 'House 9', 'value': 'house9'},
         {'label': 'House 10', 'value': 'house10'},
     ],
+    inputStyle={"margin-left": "20px"},
     value='house1',
     labelStyle={'display': 'inline-block'}
     ), 
             
-        html.H6('Trial 1: Energy, Temperature, Weekday and Hour'),
+        html.H5('Trial 1: Energy, Temperature, Weekday and Hour'),
+        html.H6('Optimal number of clusters was found to be 9'),
         dbc.Row(
             [
                 dbc.Col(controls, md=4),
@@ -138,8 +139,9 @@ layout=html.Div(children=[
             ],
             align="center",
                 ),
-        html.H6('Trial 2: Energy, Humidity, Wind speed and Solar radiation'),
-                
+        
+        html.H5('Trial 2: Energy, Humidity, Wind speed and Solar radiation'),
+        html.H6('Optimal number of clusters was found to be 3'),
         dbc.Row(
             [
                 dbc.Col(controls1, md=4),
@@ -151,7 +153,28 @@ layout=html.Div(children=[
              ]),
          
          
-         dcc.Tab(label='Load Curve', value='tab-2'),
+         dcc.Tab(label='Load Curve', value='tab-2', children=[
+             
+             dcc.RadioItems( id= 'radio2',
+    options=[
+        {'label': 'House 1', 'value': 'load1'},
+        {'label': 'House 2', 'value': 'load2'},
+        {'label': 'House 3', 'value': 'load3'},
+        {'label': 'House 4', 'value': 'load4'},
+        {'label': 'House 5', 'value': 'load5'},
+        {'label': 'House 6', 'value': 'load6'},
+        {'label': 'House 7', 'value': 'load7'},
+        {'label': 'House 8', 'value': 'load8'},
+        {'label': 'House 9', 'value': 'load9'},
+        {'label': 'House 10', 'value': 'load10'},
+    ],
+    inputStyle={"margin-left": "20px"},
+    value='load1',
+    labelStyle={'display': 'inline-block'}
+    ),
+             
+             html.Div(id= 'loadcurves')
+             ]),
      ]),
     
     html.Div(id='tabs-content'), 
@@ -164,7 +187,7 @@ layout=html.Div(children=[
      Input('radio1', 'value')])
 def make_graph(x, y, z):
     if (z == 'house1'):
-        km = KMeans(max(3, 1))
+        km = KMeans(max(9, 1))
         df = df_kmeans1_res1.loc[:, [x, y]]
         km.fit(df.values)
         df["cluster"] = km.labels_
@@ -184,7 +207,7 @@ def make_graph(x, y, z):
         return go.Figure(data=data, layout=layout);
 
     elif (z == 'house3'):
-        km = KMeans(max(3, 1))
+        km = KMeans(max(9, 1))
         df = df_kmeans1_res3.loc[:, [x, y]]
         km.fit(df.values)
         df["cluster"] = km.labels_
@@ -204,7 +227,7 @@ def make_graph(x, y, z):
         return go.Figure(data=data, layout=layout)
     
     elif (z == 'house5'):
-        km = KMeans(max(3, 1))
+        km = KMeans(max(9, 1))
         df = df_kmeans1_res5.loc[:, [x, y]]
         km.fit(df.values)
         df["cluster"] = km.labels_
@@ -224,7 +247,7 @@ def make_graph(x, y, z):
         return go.Figure(data=data, layout=layout)
     
     elif (z == 'house7'):
-        km = KMeans(max(3, 1))
+        km = KMeans(max(9, 1))
         df = df_kmeans1_res7.loc[:, [x, y]]
         km.fit(df.values)
         df["cluster"] = km.labels_
@@ -244,7 +267,7 @@ def make_graph(x, y, z):
         return go.Figure(data=data, layout=layout)
     
     elif (z == 'house9'):
-        km = KMeans(max(3, 1))
+        km = KMeans(max(9, 1))
         df = df_kmeans1_res9.loc[:, [x, y]]
         km.fit(df.values)
         df["cluster"] = km.labels_
@@ -264,7 +287,7 @@ def make_graph(x, y, z):
         return go.Figure(data=data, layout=layout)
     
     elif (z == 'house10'):
-        km = KMeans(max(3, 1))
+        km = KMeans(max(9, 1))
         df = df_kmeans1_res10.loc[:, [x, y]]
         km.fit(df.values)
         df["cluster"] = km.labels_
@@ -410,4 +433,69 @@ def make_graph1(x, y, z):
 
         return go.Figure(data=data, layout=layout)
 
+@app.callback(
+    Output('loadcurves', 'children'),
+    [Input('radio2', 'value')]
+    )
+def loadcurves (value):
+    if (value == 'load1'):
+       return html.Div([
+            html.H6('Power load curve with ---'),
+           html.Img(style={'display': 'block','margin-left': 'auto','margin-right': 'auto'}, 
+                    src='assets\loadcurve_res1.png')
+            ])
+    elif (value =='load2'):
+        return html.Div([
+            html.H6('Power load curve with ---'),
+           html.Img(style={'display': 'block','margin-left': 'auto','margin-right': 'auto'}, 
+                    src='assets\loadcurve_res2.png')
+            ])
+    elif (value =='load3'):
+        return html.Div([
+            html.H6('Power load curve with ---'),
+           html.Img(style={'display': 'block','margin-left': 'auto','margin-right': 'auto'}, 
+                    src='assets\loadcurve_res3.png')
+            ])
+    elif (value =='load4'):
+        return html.Div([
+            html.H6('Power load curve with ---'),
+           html.Img(style={'display': 'block','margin-left': 'auto','margin-right': 'auto'}, 
+                    src='assets\loadcurve_res4.png')
+            ])
+    elif (value =='load5'):
+        return html.Div([
+            html.H6('Power load curve with ---'),
+           html.Img(style={'display': 'block','margin-left': 'auto','margin-right': 'auto'}, 
+                    src='assets\loadcurve_res5.png')
+            ])
+    elif (value =='load6'):
+        return html.Div([
+            html.H6('Power load curve with ---'),
+           html.Img(style={'display': 'block','margin-left': 'auto','margin-right': 'auto'}, 
+                    src='assets\loadcurve_res6.png')
+            ])
+    elif (value =='load7'):
+        return html.Div([
+            html.H6('Power load curve with ---'),
+           html.Img(style={'display': 'block','margin-left': 'auto','margin-right': 'auto'}, 
+                    src='assets\loadcurve_res7.png')
+            ])
+    elif (value =='load8'):
+        return html.Div([
+            html.H6('Power load curve with ---'),
+           html.Img(style={'display': 'block','margin-left': 'auto','margin-right': 'auto'}, 
+                    src='assets\loadcurve_res8.png')
+            ])
+    elif (value =='load9'):
+        return html.Div([
+            html.H6('Power load curve with ---'),
+           html.Img(style={'display': 'block','margin-left': 'auto','margin-right': 'auto'}, 
+                    src='assets\loadcurve_res9.png')
+            ])
+    elif (value =='load10'):
+        return html.Div([
+            html.H6('Power load curve with ---'),
+           html.Img(style={'display': 'block','margin-left': 'auto','margin-right': 'auto'}, 
+                    src='assets\loadcurve_res10.png')
+            ])
 
