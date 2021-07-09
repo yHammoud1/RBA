@@ -10,8 +10,8 @@ from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
 from app import app
-from apps import raw_energy_data, home, eda 
-#eda, clustering, feature_engineering, forecast_models, best_forecast_model
+from apps import raw_energy_data, home, eda, clustering
+# feature_engineering, forecast_models, best_forecast_model
 
 
 
@@ -49,8 +49,8 @@ def display_page(pathname):
         return raw_energy_data.layout
     elif pathname == '/eda':
          return eda.layout
-    # elif pathname == '/clustering':
-    #     return clustering.layout
+    elif pathname == '/clustering':
+        return clustering.layout
     # elif pathname == '/feature_engineering':
     #     return feature_engineering.layout
     # elif pathname == '/forecast_models':
