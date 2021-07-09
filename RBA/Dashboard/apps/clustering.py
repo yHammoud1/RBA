@@ -177,7 +177,7 @@ def make_graph(x, y, z):
                 marker={"size": 8},
                 name="Cluster {}".format(c),
                     )
-            for c in range(3)
+            for c in range(9)
             ]
         layout = {"xaxis": {"title": x}, "yaxis": {"title": y}}
 
@@ -197,7 +197,7 @@ def make_graph(x, y, z):
                 marker={"size": 8},
                 name="Cluster {}".format(c),
                     )
-            for c in range(3)
+            for c in range(9)
             ]
         layout = {"xaxis": {"title": x}, "yaxis": {"title": y}}
 
@@ -217,7 +217,7 @@ def make_graph(x, y, z):
                 marker={"size": 8},
                 name="Cluster {}".format(c),
                     )
-            for c in range(3)
+            for c in range(9)
             ]
         layout = {"xaxis": {"title": x}, "yaxis": {"title": y}}
 
@@ -237,7 +237,7 @@ def make_graph(x, y, z):
                 marker={"size": 8},
                 name="Cluster {}".format(c),
                     )
-            for c in range(3)
+            for c in range(9)
             ]
         layout = {"xaxis": {"title": x}, "yaxis": {"title": y}}
 
@@ -257,7 +257,7 @@ def make_graph(x, y, z):
                 marker={"size": 8},
                 name="Cluster {}".format(c),
                     )
-            for c in range(3)
+            for c in range(9)
             ]
         layout = {"xaxis": {"title": x}, "yaxis": {"title": y}}
 
@@ -277,7 +277,7 @@ def make_graph(x, y, z):
                 marker={"size": 8},
                 name="Cluster {}".format(c),
                     )
-            for c in range(3)
+            for c in range(9)
             ]
         layout = {"xaxis": {"title": x}, "yaxis": {"title": y}}
 
