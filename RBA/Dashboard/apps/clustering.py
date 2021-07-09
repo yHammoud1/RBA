@@ -292,7 +292,7 @@ def make_graph(x, y, z):
 def make_graph1(x, y, z):
     if (z == 'house1'):
         km = KMeans(max(3, 1))
-        df = df_kmeans1_res1.loc[:, [x, y]]
+        df = df_kmeans2_res1.loc[:, [x, y]]
         km.fit(df.values)
         df["cluster"] = km.labels_
 
@@ -312,7 +312,7 @@ def make_graph1(x, y, z):
 
     elif (z == 'house3'):
         km = KMeans(max(3, 1))
-        df = df_kmeans1_res3.loc[:, [x, y]]
+        df = df_kmeans2_res3.loc[:, [x, y]]
         km.fit(df.values)
         df["cluster"] = km.labels_
 
@@ -332,7 +332,7 @@ def make_graph1(x, y, z):
     
     elif (z == 'house5'):
         km = KMeans(max(3, 1))
-        df = df_kmeans1_res5.loc[:, [x, y]]
+        df = df_kmeans2_res5.loc[:, [x, y]]
         km.fit(df.values)
         df["cluster"] = km.labels_
 
@@ -352,7 +352,7 @@ def make_graph1(x, y, z):
     
     elif (z == 'house7'):
         km = KMeans(max(3, 1))
-        df = df_kmeans1_res7.loc[:, [x, y]]
+        df = df_kmeans2_res7.loc[:, [x, y]]
         km.fit(df.values)
         df["cluster"] = km.labels_
 
@@ -372,7 +372,7 @@ def make_graph1(x, y, z):
     
     elif (z == 'house9'):
         km = KMeans(max(3, 1))
-        df = df_kmeans1_res9.loc[:, [x, y]]
+        df = df_kmeans2_res9.loc[:, [x, y]]
         km.fit(df.values)
         df["cluster"] = km.labels_
 
@@ -392,7 +392,7 @@ def make_graph1(x, y, z):
     
     elif (z == 'house10'):
         km = KMeans(max(3, 1))
-        df = df_kmeans1_res10.loc[:, [x, y]]
+        df = df_kmeans2_res10.loc[:, [x, y]]
         km.fit(df.values)
         df["cluster"] = km.labels_
 
