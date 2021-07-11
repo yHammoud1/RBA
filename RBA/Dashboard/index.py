@@ -2,9 +2,15 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
+import pandas as pd
 
 from app import app
-from apps import raw_energy_data, home, eda, clustering, feature_engineering, forecast_models, maps , best_forecast_model
+from apps import raw_energy_data, eda, clustering, feature_engineering, forecast_models, maps , best_forecast_model, home
+
+
+
+
+
 
 SIDEBAR_STYLE = {
     "position": "fixed",
@@ -76,7 +82,7 @@ def display_page(pathname):
     elif pathname == '/maps':
         return maps.layout
     else:
-        return home.layout
+        return  home.layout
     
     
        
