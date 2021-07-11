@@ -78,11 +78,8 @@ layout=html.Div(children=[
                         {"label": i, "value": i } for i in errors_table1.Method 
                     ],
                     value="Random Forest", ),
-            ]),
-
              dcc.Graph(id='model-graphs'),
              ]),
-      
          
          dcc.Tab(id= 'tab2', label='Model Errors', value='tab-2', children=[
              
@@ -106,13 +103,16 @@ layout=html.Div(children=[
              html.Div(id= 'errortables')
              ])
          ])
+      ])
+
 
 @app.callback(
      Output('model-graphs', 'figure'),
     [Input('models', 'value')])
 def update_figure(value):
     if ( value == 'Linear Regression'):
-        return  px.line(reg_table1,x= a_list , y= [y_test[1:200],reg_table1.y_pred_LR[1:200]], color='variable')
+        return  px.line(reg_table1,x= a_list , y= [y_test[1:200],reg_table1.y_pred_LR[1:200]], color='y_pred_LR'),
+           
     
     elif ( value == 'Random Forest'): 
         return  px.line(reg_table1,x= a_list , y= [y_test[1:200],reg_table1.y_pred_RF[1:200]], color='variable')
