@@ -4,27 +4,37 @@ Created on Wed Jul  7 21:11:38 2021
 
 @author: Yara
 """
-import pandas as pd
-import plotly.express as px
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
 from app import app
-from apps import raw_energy_data, home, eda, clustering, feature_engineering, forecast_models, best_forecast_model
-#, maps 
+from apps import raw_energy_data, home, eda, clustering, feature_engineering, forecast_models, maps , best_forecast_model
 
+SIDEBAR_STYLE = {
+    "position": "fixed",
+    "top": 0,
+    "left": 0,
+    "bottom": 0,
+    "width": "15rem",
+    "padding": "2rem 1rem",
+    "background-color": "#E2C2FF"
+    
+}
 
-data = [['House1', 49.26980201, -123.0837633],
-        ['House2', 49.26781432, -123.0674411]]
+CONTENT_STYLE = {
+    "margin-left": "18rem",
+    "margin-right": "2rem",
+    "padding": "2rem 1rem",
+}
 
-df = pd.DataFrame(data, columns = ['House', 'long', 'lat'])
-
-app.layout = html.Div(children=[
-        dcc.Location(id="url"),
-        dbc.NavbarSimple(
-            children=[
+sidebar = html.Div(
+    [
+        html.H2("RBA", className="display-4"),
+        html.Hr(),
+        dbc.Nav( 
+            [
                 dbc.NavLink("Home", href="/home", active="exact"),
                 dbc.NavLink("Raw Energy Data", href="/raw_energy_data", active="exact"),
                 dbc.NavLink("EDA", href="/eda", active="exact"),
@@ -32,20 +42,25 @@ app.layout = html.Div(children=[
                 dbc.NavLink("Feature Engineering", href="/feature_engineering", active="exact"),
                 dbc.NavLink("Forecast Models", href="/forecast_models", active="exact"),
                 dbc.NavLink("Best Forecast Model", href="/best_forecast_model", active="exact"),
-                # dbc.NavLink("Map", href="/maps", active="exact"),
+                dbc.NavLink("Map", href="/maps", active="exact"),
             ],
-            brand="IST South Tower 2017-2018",
-            color="info",
-            dark=True,
-            fixed= "top",
+            vertical=True,
+            pills=True,
             
         ),
-       
-        dbc.Container(
-            id="page-content", className="pt-4",  
-                      
-                      ),
-        ])
+    ],
+    style=SIDEBAR_STYLE,
+)
+
+content = html.Div(id="page-content", children=[], style=CONTENT_STYLE)
+
+
+
+app.layout =   html.Div([
+    dcc.Location(id="url"),
+    sidebar,
+    content
+    ])
 
 
 
@@ -64,16 +79,8 @@ def display_page(pathname):
       return forecast_models.layout
     elif pathname == '/best_forecast_model':
         return best_forecast_model.layout
-    # elif pathname == '/maps':
-    #     return html.Div( children = [
-    #         html.Br(),
-    #         html.Br(),
-    #         dcc.Graph(
-    #             id='example-graph4',
-    #             figure = px.scatter_mapbox(df, lat="lat", lon="long",
-    #                                     color_discrete_sequence=["fuchsia"], zoom=10, height=400,mapbox_style="open-street-map"))
-
-    #         ])
+    elif pathname == '/maps':
+        return maps.layout
     else:
         return home.layout
     
@@ -81,4 +88,13 @@ def display_page(pathname):
        
 
 if __name__ == '__main__':
-    app.run_server(debug=True, dev_tools_props_check=False)
+    app.run_server(debug=False, dev_tools_props_check=False)
+    
+  
+    
+    
+    
+
+
+
+

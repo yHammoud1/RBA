@@ -30,6 +30,17 @@ holidays = pd.read_csv('Holidays.csv', parse_dates=['date'], index_col='date', d
 
 
 
+##### For Map ########
+data = [ res1['energy_kWh'].mean(), res2['energy_kWh'].mean(), res3['energy_kWh'].mean(),
+        res4['energy_kWh'].mean(), res5['energy_kWh'].mean(), res6['energy_kWh'].mean(),
+        res7['energy_kWh'].mean(), res8['energy_kWh'].mean(), res9['energy_kWh'].mean(),
+        res10['energy_kWh'].mean()
+        ]
+df2 = pd.DataFrame(data)
+df2 = df2.rename(columns={ 0:'Mean_Consumption'})
+df2.to_csv('./Dashboard/assets/mean_consumption.csv', encoding='utf-8', index=True)
+
+
 ########### Data Cleaning ################################################################
 
 ## Cleaning of meteo data
