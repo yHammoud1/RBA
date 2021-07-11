@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jul  7 21:11:38 2021
-
-@author: Yara
-"""
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
@@ -31,7 +25,7 @@ CONTENT_STYLE = {
 
 sidebar = html.Div(
     [
-        html.H2("RBA", className="display-4"),
+        html.H2("----", className="display-4"),
         html.Hr(),
         dbc.Nav( 
             [
