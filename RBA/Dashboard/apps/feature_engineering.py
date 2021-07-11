@@ -29,19 +29,23 @@ table1 = dbc.Table.from_dataframe(table3[1:6],bordered= True, dark= False, strip
 
 layout=html.Div(children=[
      html.Br(), 
-      html.Br(), 
-      html.Br(),
       html.H4('Feature Engineering/Extraction'),
       html.H5('House 1 data are presented as an example'),
+      html.Br(),
       dcc.Tabs(id='tabs', value='tab-1', children=[ 
          dcc.Tab(label='Engineered Features', value='tab-1', id='tab1', children =[ 
+             html.Br(),
              html.H5('New features were engineered to optimize the modeling using the available data: Temp2, LWE2, Heating degree.hour, Prec2 and Energy-1'),
-             html.H6('explain the equations used ----------------'),
+             html.H6('Temp2 = Temperature squared'),
+             html.H6('Prec2 = Precipitation squared'),
+             html.H6('LWE2 = Snow Depth (Liquid water equivalent) squared'),
+             html.H6('Energy-1 = Energy consumption of the previous hour'),
              html.Div(table),
              ]),
          
          dcc.Tab(label='Model Dataset', value='tab-2', children=[
-              html.H5('Final features selected to perform the modelling are presented in the following table'),
+             html.Br(), 
+             html.H5('Final features selected to perform the modelling are presented in the following table'),
               html.H6('After applying Filter, Wrapper and Ensemble methods, the most relevant features selected were: Energy-1, hour, temperature, Solar radiation, Day of Week'),
               html.Div(table1),
              ])

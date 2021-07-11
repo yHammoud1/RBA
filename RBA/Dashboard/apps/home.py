@@ -13,7 +13,7 @@ table1 = dbc.Table.from_dataframe(table,bordered= True, dark= False, hover = Tru
 
 layout= html.Div(children=[
                 html.Br(),
-                html.H2('Vancouver Residential Buildings Energy Consumption Analysis'),
+                html.H1('Vancouver Residential Buildings Energy Consumption Analysis'),
                 html.Br(),
                 html.H5('This dashboard presents an energy consumption analysis done on 10 residential buildings in the area of Vancouver, British Columbia, Canada. All the houses included are powered by BC hydro, which povides nearly 100% hydro-electric power.'),
                 html.H5('Hourly energy consumption data, amongst other data about the houses under study, were taken from a dataset collected from a research project done at Harvard University (Makonin, S., 2018. HUE: The hourly usage of energy dataset for buildings in British Columbia).'),

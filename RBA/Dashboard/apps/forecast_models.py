@@ -65,13 +65,14 @@ X_train, X_test, y_train, y_test = train_test_split(X,Y)
 
 layout=html.Div(children=[
      html.Br(), 
-      html.Br(), 
-      html.Br(),
       html.H4('Testing Different Models to Forecast Energy Consumption'),
+      html.Br(),
       dcc.Tabs(id='tabs', value='tab-1', children=[ 
          dcc.Tab(label='Models Predicted Data', value='tab-1', id='tab1', children =[ 
-             html.H5('----------'),
-             html.H6(' ----------------'),
+             html.Br(),
+             html.H5('The plots below show the results of the different prediction models used for predicting the energy consumption of the houses.'),
+             html.H6('The plots compare the predicted data (orange) with the testing data available (blue)'), 
+             html.H6('Choose among the prediction models to view the results:'),
               dcc.Dropdown(
                     id="models",
                     options=[
@@ -82,7 +83,7 @@ layout=html.Div(children=[
              ]),
          
          dcc.Tab(id= 'tab2', label='Model Errors', value='tab-2', children=[
-             
+             html.Br(),
              dcc.RadioItems( id= 'radio2',
     options=[
         {'label': 'House 1', 'value': 'load1'},

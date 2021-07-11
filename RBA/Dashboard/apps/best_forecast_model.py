@@ -17,8 +17,6 @@ RF_table8 = pd.read_csv('../Result_csv/RF_table_res8.csv')
 RF_table9 = pd.read_csv('../Result_csv/RF_table_res9.csv')
 RF_table10 = pd.read_csv('../Result_csv/RF_table_res10.csv')
 
-#RF_table= RF_table.round(3)
-
 table1 = dbc.Table.from_dataframe(RF_table1,bordered= True, dark= False, striped= True, hover = True,responsive= True )
 table2 = dbc.Table.from_dataframe(RF_table2,bordered= True, dark= False, striped= True, hover = True,responsive= True )
 table3 = dbc.Table.from_dataframe(RF_table3,bordered= True, dark= False, striped= True, hover = True,responsive= True )
@@ -32,8 +30,6 @@ table10 = dbc.Table.from_dataframe(RF_table10,bordered= True, dark= False, strip
 
 layout=html.Div(children=[
     html.Br(),
-    html.Br(),
-    html.Br(),
     html.H4('The best forecasting model chosen according to the results of each model was found to be Random Forest'),
     html.Br(),
     
@@ -45,6 +41,7 @@ layout=html.Div(children=[
     html.H6('Trial 2: min_sample_leaf= 3  , n_estimators= 150, min_samples_split= 30'),
     html.H6('Trial 3: min_sample_leaf= 3  , n_estimators= 300, min_samples_split= 10, max_depth= 40'),
 
+    html.Br(),
     html.Div(children=[
      dcc.RadioItems( id= 'radio1',
     options=[
@@ -64,6 +61,7 @@ layout=html.Div(children=[
     labelStyle={'display': 'inline-block'}
     )
     ]),
+    html.Br(),
     html.Div(id= 'errortables1')
  ])
    

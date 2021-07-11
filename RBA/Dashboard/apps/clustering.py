@@ -108,11 +108,12 @@ controls1 = dbc.Card(
 
 layout=html.Div(children=[
     html.Br(), 
-    html.Br(), 
     html.H4('Clustering of Data Using Kmeans and Clustered Load Curve Results'),
+    html.Br(),
     dcc.Tabs(id='tabs-1', value='tab-1', children=[
          dcc.Tab(label='Kmeans', value='tab-1', id='kmeanstab', children=[
              html.Div([
+                 html.Br(),
        html.H5('Clustering using Kmeans: trials with sets of different parameters'),
         html.Br(), 
        
@@ -172,6 +173,7 @@ layout=html.Div(children=[
     value='load1',
     labelStyle={'display': 'inline-block'}
     ),
+             html.Br(),
              
              html.Div(id= 'loadcurves')
              ]),
@@ -440,61 +442,61 @@ def make_graph1(x, y, z):
 def loadcurves (value):
     if (value == 'load1'):
        return html.Div([
-            html.H6('Power load curve with ---'),
+            html.H6('Power load curve with 2 clusters'),
            html.Img(style={'display': 'block','margin-left': 'auto','margin-right': 'auto'}, 
                     src='assets\loadcurve_res1.png')
             ])
     elif (value =='load2'):
         return html.Div([
-            html.H6('Power load curve with ---'),
+            html.H6('Power load curve with 2 clusters'),
            html.Img(style={'display': 'block','margin-left': 'auto','margin-right': 'auto'}, 
                     src='assets\loadcurve_res2.png')
             ])
     elif (value =='load3'):
         return html.Div([
-            html.H6('Power load curve with ---'),
+            html.H6('Power load curve with 2 clusters'),
            html.Img(style={'display': 'block','margin-left': 'auto','margin-right': 'auto'}, 
                     src='assets\loadcurve_res3.png')
             ])
     elif (value =='load4'):
         return html.Div([
-            html.H6('Power load curve with ---'),
+            html.H6('Power load curve with 2 clusters'),
            html.Img(style={'display': 'block','margin-left': 'auto','margin-right': 'auto'}, 
                     src='assets\loadcurve_res4.png')
             ])
     elif (value =='load5'):
         return html.Div([
-            html.H6('Power load curve with ---'),
+            html.H6('Power load curve with 2 clusters'),
            html.Img(style={'display': 'block','margin-left': 'auto','margin-right': 'auto'}, 
                     src='assets\loadcurve_res5.png')
             ])
     elif (value =='load6'):
         return html.Div([
-            html.H6('Power load curve with ---'),
+            html.H6('Power load curve with 2 clusters'),
            html.Img(style={'display': 'block','margin-left': 'auto','margin-right': 'auto'}, 
                     src='assets\loadcurve_res6.png')
             ])
     elif (value =='load7'):
         return html.Div([
-            html.H6('Power load curve with ---'),
+            html.H6('Power load curve with 2 clusters'),
            html.Img(style={'display': 'block','margin-left': 'auto','margin-right': 'auto'}, 
                     src='assets\loadcurve_res7.png')
             ])
     elif (value =='load8'):
         return html.Div([
-            html.H6('Power load curve with ---'),
+            html.H6('Power load curve with 2 clusters'),
            html.Img(style={'display': 'block','margin-left': 'auto','margin-right': 'auto'}, 
                     src='assets\loadcurve_res8.png')
             ])
     elif (value =='load9'):
         return html.Div([
-            html.H6('Power load curve with ---'),
+            html.H6('Power load curve with 2 clusters'),
            html.Img(style={'display': 'block','margin-left': 'auto','margin-right': 'auto'}, 
                     src='assets\loadcurve_res9.png')
             ])
     elif (value =='load10'):
         return html.Div([
-            html.H6('Power load curve with ---'),
+            html.H6('Power load curve with 2 clusters'),
            html.Img(style={'display': 'block','margin-left': 'auto','margin-right': 'auto'}, 
                     src='assets\loadcurve_res10.png')
             ])

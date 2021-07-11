@@ -51,9 +51,8 @@ df_EDA10_final = pd.read_csv('res101.csv')
 
 layout= html.Div(children=[
     html.Br(),
-    html.Br(),
-    html.Br(),
     html.H4('Exploratory Data Analysis on Energy Data'),
+    html.Br(),
     dcc.Tabs(id='tabs', value='tab-1', children=[
          dcc.Tab(label='Z-score Method', value='tab-1', id='tab1', children =[
              html.Div(children = [
@@ -87,7 +86,7 @@ layout= html.Div(children=[
          dcc.Tab(label='IQR Method', value='tab-2', id='tab2', children = [
               html.Div(children = [
             html.Br(),
-            html.H6('Removal of outliers by IQR method'),
+            html.H5('Removal of outliers by IQR method'),
             html.H6('The results of a sample of the houses can be viewed'),
             
             dcc.Dropdown(
@@ -163,7 +162,7 @@ def prepare_eda_graphs1(value):
         ],
         'layout': {
             'title': 'Outliers found by Z-score method '  
-        } }, px.box(df_zscore1, x=df_zscore1['Energy_res1'], title = 'Boxplot after outliers removal')
+        } }, px.box(df_zscore1, x=df_zscore1['Energy_res1'], title = '     Boxplot after outliers removal')
     elif (value == 'z2'):
         return {
         'data': [
@@ -172,7 +171,7 @@ def prepare_eda_graphs1(value):
         ],
         'layout': {
             'title': 'Outliers found by Z-score method '  
-        } }, px.box(df_zscore2, x=df_zscore2['Energy_res2'], title = 'Boxplot after outliers removal')
+        } }, px.box(df_zscore2, x=df_zscore2['Energy_res2'], title = '     Boxplot after outliers removal')
     elif (value == 'z3'):
         return {
         'data': [
@@ -181,7 +180,7 @@ def prepare_eda_graphs1(value):
         ],
         'layout': {
             'title': 'Outliers found Z-score method '  
-        } }, px.box(df_zscore3, x=df_zscore3['Energy_res3'], title = 'Boxplot after outliers removal')
+        } }, px.box(df_zscore3, x=df_zscore3['Energy_res3'], title = '     Boxplot after outliers removal')
     
  
          
@@ -198,7 +197,7 @@ def prepare_eda_graphs2(value):
         ],
         'layout': {
             'title': 'Outliers found IQR method '  
-        } }, px.box(df_IQR4, x=df_IQR4['Energy_res4'], title = 'Boxplot after outliers removal')
+        } }, px.box(df_IQR4, x=df_IQR4['Energy_res4'], title = '     Boxplot after outliers removal')
     elif (value == 'i5'):
         return {
         'data': [
@@ -207,7 +206,7 @@ def prepare_eda_graphs2(value):
         ],
         'layout': {
             'title': 'Outliers found by IQR method '  
-        } }, px.box(df_IQR5, x=df_IQR5['Energy_res5'], title = 'Boxplot after outliers removal')
+        } }, px.box(df_IQR5, x=df_IQR5['Energy_res5'], title = '     Boxplot after outliers removal')
     elif (value == 'i6'):
         return {
         'data': [
@@ -216,7 +215,7 @@ def prepare_eda_graphs2(value):
         ],
         'layout': {
             'title': 'Outliers found by IQR method '  
-        } }, px.box(df_IQR6, x=df_IQR6['Energy_res6'], title = 'Boxplot after outliers removal')
+        } }, px.box(df_IQR6, x=df_IQR6['Energy_res6'], title = '     Boxplot after outliers removal')
     
     
 @app.callback(
@@ -231,7 +230,7 @@ def prepare_eda_graphs3(value):
         ],
         'layout': {
             'title': 'Final Outliers removal '  
-        } }, px.box(df_EDA7_final, x=df_EDA7_final['Energy_res7'], title = 'Boxplot after outliers removal')
+        } }, px.box(df_EDA7_final, x=df_EDA7_final['Energy_res7'], title = '     Boxplot after outliers removal')
     elif (value == 'f8'):
         return {
         'data': [
@@ -239,7 +238,7 @@ def prepare_eda_graphs3(value):
         ],
         'layout': {
             'title': 'Final Outliers removal '  
-        } }, px.box(df_EDA8_final, x=df_EDA8_final['Energy_res8'], title = 'Boxplot after outliers removal')
+        } }, px.box(df_EDA8_final, x=df_EDA8_final['Energy_res8'], title = '     Boxplot after outliers removal')
     elif (value == 'f9'):
         return {
         'data': [
@@ -247,4 +246,4 @@ def prepare_eda_graphs3(value):
         ],
         'layout': {
             'title': 'Final Outliers removal '  
-        } }, px.box(df_EDA9_final, x=df_EDA9_final['Energy_res9'], title = 'Boxplot after outliers removal')
+        } }, px.box(df_EDA9_final, x=df_EDA9_final['Energy_res9'], title = '     Boxplot after outliers removal')

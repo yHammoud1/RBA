@@ -37,12 +37,13 @@ sidebar = html.Div(
             [
                 dbc.NavLink("Home", href="/home", active="exact"),
                 dbc.NavLink("Raw Energy Data", href="/raw_energy_data", active="exact"),
-                dbc.NavLink("EDA", href="/eda", active="exact"),
+                dbc.NavLink("Study Area", href="/maps", active="exact"),
+                dbc.NavLink("Exploratory Data Analysis", href="/eda", active="exact"),
                 dbc.NavLink("Clustering", href="/clustering", active="exact"),
                 dbc.NavLink("Feature Engineering", href="/feature_engineering", active="exact"),
                 dbc.NavLink("Forecast Models", href="/forecast_models", active="exact"),
                 dbc.NavLink("Best Forecast Model", href="/best_forecast_model", active="exact"),
-                dbc.NavLink("Map", href="/maps", active="exact"),
+                
             ],
             vertical=True,
             pills=True,

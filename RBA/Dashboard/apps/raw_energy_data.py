@@ -37,9 +37,8 @@ table2 = dbc.Table.from_dataframe(table_raw_meteo[1:6],bordered= True, dark= Fal
 
 layout= html.Div(children=[
     html.Br(),
-    html.Br(),
-    html.Br(),
     html.H4('Raw Energy Consumption Data of 10 Houses in Vancouver'),
+    html.Br(),
     dcc.Tabs(id='tabs', value='tab-1', children=[
          dcc.Tab(label='Raw Data Plots', value='tab-1', id='tab1', children =[
             html.Div(children = [
