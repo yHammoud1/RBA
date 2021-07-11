@@ -9,14 +9,14 @@ import pandas as pd
 import geopandas as gpd
 import plotly.express as px
 import matplotlib.pyplot as plt 
-import seaborn as sns; sns.set(style="ticks", color_codes=True)
+# import seaborn as sns; sns.set(style="ticks", color_codes=True)
 from geopandas import GeoDataFrame
 import json
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
-from shapely.geometry import Point 
+# from shapely.geometry import Point 
 import plotly.graph_objects as go
 from app import app 
 
@@ -26,8 +26,8 @@ from plotly.tools import mpl_to_plotly
 
 
 
-geo_df = gpd.read_file("assets/local-area-boundary.geojson")
-vc = gpd.read_file('assets/gpr_000b11a_e.shp')
+# geo_df = gpd.read_file("assets/local-area-boundary.geojson")
+# vc = gpd.read_file('assets/gpr_000b11a_e.shp')
 
 mapbox_access_token = 'pk.eyJ1IjoibGF2ZW5zaGkiLCJhIjoiY2txeTZnMjYzMTU2YTJxcWFwengydjhqbyJ9._T1SNgTdBRstJnPEdWra0A'
 px.set_mapbox_access_token(mapbox_access_token)

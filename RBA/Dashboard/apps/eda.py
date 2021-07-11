@@ -16,46 +16,24 @@ import  plotly.express as px
 df_zscore1 = pd.read_csv('EDA_zscore1.csv')
 df_zscore2 = pd.read_csv('EDA_zscore2.csv')
 df_zscore3 = pd.read_csv('EDA_zscore3.csv')
-# df_zscore4 = pd.read_csv('EDA_zscore4.csv')
-# df_zscore5 = pd.read_csv('EDA_zscore5.csv')
-# df_zscore6 = pd.read_csv('EDA_zscore6.csv')
-# df_zscore7 = pd.read_csv('EDA_zscore7.csv')
-# df_zscore8 = pd.read_csv('EDA_zscore8.csv')
-# df_zscore9 = pd.read_csv('EDA_zscore9.csv')
-# df_zscore10 = pd.read_csv('EDA_zscore10.csv')
+
 
 df_zscore1_opp = pd.read_csv('EDA_zscore1_opp.csv')
 df_zscore2_opp = pd.read_csv('EDA_zscore2_opp.csv')
 df_zscore3_opp = pd.read_csv('EDA_zscore3_opp.csv')
-# df_zscore4_opp = pd.read_csv('EDA_zscore4_opp.csv')
-# df_zscore5_opp = pd.read_csv('EDA_zscore5_opp.csv')
-# df_zscore6_opp = pd.read_csv('EDA_zscore6_opp.csv')
-# df_zscore7_opp = pd.read_csv('EDA_zscore7_opp.csv')
-# df_zscore8_opp = pd.read_csv('EDA_zscore8_opp.csv')
-# df_zscore9_opp = pd.read_csv('EDA_zscore9_opp.csv')
-# df_zscore10_opp = pd.read_csv('EDA_zscore10_opp.csv')
 
-# df_IQR1 = pd.read_csv('EDA_IQR1.csv')
-# df_IQR2 = pd.read_csv('EDA_IQR2.csv')
-# df_IQR3 = pd.read_csv('EDA_IQR3.csv')
+
+
 df_IQR4 = pd.read_csv('EDA_IQR4.csv')
 df_IQR5 = pd.read_csv('EDA_IQR5.csv')
 df_IQR6 = pd.read_csv('EDA_IQR6.csv')
-# df_IQR7 = pd.read_csv('EDA_IQR7.csv')
-# df_IQR8 = pd.read_csv('EDA_IQR8.csv')
-# df_IQR9 = pd.read_csv('EDA_IQR9.csv')
-# df_IQR10 = pd.read_csv('EDA_IQR10.csv')
 
-# df_IQR1_opp = pd.read_csv('EDA_IQR1_opp.csv')
-# df_IQR2_opp = pd.read_csv('EDA_IQR2_opp.csv')
-# df_IQR3_opp = pd.read_csv('EDA_IQR3_opp.csv')
+
+
 df_IQR4_opp = pd.read_csv('EDA_IQR4_opp.csv')
 df_IQR5_opp = pd.read_csv('EDA_IQR5_opp.csv')
 df_IQR6_opp = pd.read_csv('EDA_IQR6_opp.csv')
-# df_IQR7_opp = pd.read_csv('EDA_IQR7_opp.csv')
-# df_IQR8_opp = pd.read_csv('EDA_IQR8_opp.csv')
-# df_IQR9_opp = pd.read_csv('EDA_IQR9_opp.csv')
-# df_IQR10_opp = pd.read_csv('EDA_IQR10_opp.csv')
+
 
 
 df_EDA1_final = pd.read_csv('res11.csv')

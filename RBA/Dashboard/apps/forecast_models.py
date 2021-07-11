@@ -19,27 +19,27 @@ df_model_dataset8= pd.read_csv('../Result_csv/Model_dataset_res8.csv')
 df_model_dataset9= pd.read_csv('../Result_csv/Model_dataset_res9.csv')
 df_model_dataset10= pd.read_csv('../Result_csv/Model_dataset_res10.csv')
 
-errors_table1= pd.read_csv('errors_table_res1.csv')
-errors_table2= pd.read_csv('errors_table_res2.csv')
-errors_table3= pd.read_csv('errors_table_res3.csv')
-errors_table4= pd.read_csv('errors_table_res4.csv')
-errors_table5= pd.read_csv('errors_table_res5.csv')
-errors_table6= pd.read_csv('errors_table_res6.csv')
-errors_table7= pd.read_csv('errors_table_res7.csv')
-errors_table8= pd.read_csv('errors_table_res8.csv')
-errors_table9= pd.read_csv('errors_table_res9.csv')
-errors_table10= pd.read_csv('errors_table_res10.csv')
+errors_table1= pd.read_csv('../Result_csv/errors_table_res1.csv')
+errors_table2= pd.read_csv('../Result_csv/errors_table_res2.csv')
+errors_table3= pd.read_csv('../Result_csv/errors_table_res3.csv')
+errors_table4= pd.read_csv('../Result_csv/errors_table_res4.csv')
+errors_table5= pd.read_csv('../Result_csv/errors_table_res5.csv')
+errors_table6= pd.read_csv('../Result_csv/errors_table_res6.csv')
+errors_table7= pd.read_csv('../Result_csv/errors_table_res7.csv')
+errors_table8= pd.read_csv('../Result_csv/errors_table_res8.csv')
+errors_table9= pd.read_csv('../Result_csv/errors_table_res9.csv')
+errors_table10= pd.read_csv('../Result_csv/errors_table_res10.csv')
 
-reg_table1= pd.read_csv('reg_table_res1.csv')
-reg_table2= pd.read_csv('reg_table_res2.csv')
-reg_table3= pd.read_csv('reg_table_res3.csv')
-reg_table4= pd.read_csv('reg_table_res4.csv')
-reg_table5= pd.read_csv('reg_table_res5.csv')
-reg_table6= pd.read_csv('reg_table_res6.csv')
-reg_table7= pd.read_csv('reg_table_res7.csv')
-reg_table8= pd.read_csv('reg_table_res8.csv')
-reg_table9= pd.read_csv('reg_table_res9.csv')
-reg_table10= pd.read_csv('reg_table_res10.csv')
+reg_table1= pd.read_csv('../Result_csv/reg_table_res1.csv')
+reg_table2= pd.read_csv('../Result_csv/reg_table_res2.csv')
+reg_table3= pd.read_csv('../Result_csv/reg_table_res3.csv')
+reg_table4= pd.read_csv('../Result_csv/reg_table_res4.csv')
+reg_table5= pd.read_csv('../Result_csv/reg_table_res5.csv')
+reg_table6= pd.read_csv('../Result_csv/reg_table_res6.csv')
+reg_table7= pd.read_csv('../Result_csv/reg_table_res7.csv')
+reg_table8= pd.read_csv('../Result_csv/reg_table_res8.csv')
+reg_table9= pd.read_csv('../Result_csv/reg_table_res9.csv')
+reg_table10= pd.read_csv('../Result_csv/reg_table_res10.csv')
 
 
 table_errors1 = dbc.Table.from_dataframe(errors_table1,bordered= True, dark= False, striped= True, hover = True,responsive= True )
@@ -58,7 +58,7 @@ a_list = list(range(1, 200))
 df_model_dataset1 = df_model_dataset1.drop(columns=['Date'])
 X=df_model_dataset1.values
 Y=X[:,0] #output is power
-X=X[:,[1,2,3,4,5,6]]
+X=X[:,[1,2,3,4,5]]
 X_train, X_test, y_train, y_test = train_test_split(X,Y)
 
 
@@ -67,7 +67,7 @@ layout=html.Div(children=[
      html.Br(), 
       html.Br(), 
       html.Br(),
-      html.H4('Testing Different Regression Models to Forecast Energy Consumption'),
+      html.H4('Testing Different Models to Forecast Energy Consumption'),
       dcc.Tabs(id='tabs', value='tab-1', children=[ 
          dcc.Tab(label='Models Predicted Data', value='tab-1', id='tab1', children =[ 
              html.H5('----------'),
@@ -84,7 +84,7 @@ layout=html.Div(children=[
              ]),
       
          
-         dcc.Tab(label='Model Errors', value='tab-2', children=[
+         dcc.Tab(id= 'tab2', label='Model Errors', value='tab-2', children=[
              
              dcc.RadioItems( id= 'radio2',
     options=[
@@ -141,7 +141,7 @@ def update_figure(value):
     Output('errortables', 'children'),
     [Input('radio2', 'value')]
     )
-def errortables (value):
+def errortable (value):
     if (value == 'load1'):
        return html.Div([
             html.H5('The results of the errors produced by each model are presented in the below table'),

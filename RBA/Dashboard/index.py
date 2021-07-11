@@ -12,8 +12,9 @@ from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
 from app import app
-from apps import raw_energy_data, home, eda, clustering, feature_engineering, maps 
-# forecast_models, best_forecast_model
+from apps import raw_energy_data, home, eda, clustering, feature_engineering, forecast_models
+#, maps 
+#  best_forecast_model
 
 data = [['House1', 49.26980201, -123.0837633],
         ['House2', 49.26781432, -123.0674411]]
@@ -31,7 +32,7 @@ app.layout = html.Div(children=[
                 dbc.NavLink("Feature Engineering", href="/feature_engineering", active="exact"),
                 dbc.NavLink("Forecast Models", href="/forecast_models", active="exact"),
                 dbc.NavLink("Best Forecast Model", href="/best_forecast_model", active="exact"),
-                dbc.NavLink("Map", href="/maps", active="exact"),
+                # dbc.NavLink("Map", href="/maps", active="exact"),
             ],
             brand="IST South Tower 2017-2018",
             color="info",
@@ -59,20 +60,20 @@ def display_page(pathname):
         return clustering.layout
     elif pathname == '/feature_engineering':
         return feature_engineering.layout
-    #elif pathname == '/forecast_models':
-    #   return forecast_models.layout
+    elif pathname == '/forecast_models':
+      return forecast_models.layout
     # elif pathname == '/best_forecast_model':
     #     return best_forecast_model.layout
-    elif pathname == '/maps':
-        return html.Div( children = [
-            html.Br(),
-            html.Br(),
-            dcc.Graph(
-                id='example-graph4',
-                figure = px.scatter_mapbox(df, lat="lat", lon="long",
-                                        color_discrete_sequence=["fuchsia"], zoom=10, height=400,mapbox_style="open-street-map"))
+    # elif pathname == '/maps':
+    #     return html.Div( children = [
+    #         html.Br(),
+    #         html.Br(),
+    #         dcc.Graph(
+    #             id='example-graph4',
+    #             figure = px.scatter_mapbox(df, lat="lat", lon="long",
+    #                                     color_discrete_sequence=["fuchsia"], zoom=10, height=400,mapbox_style="open-street-map"))
 
-            ])
+    #         ])
     else:
         return home.layout
     
