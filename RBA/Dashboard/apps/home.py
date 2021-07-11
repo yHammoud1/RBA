@@ -15,7 +15,7 @@ import  plotly.express as px
 
 table = pd.read_csv('house_charact.csv')
 
-table1 = dbc.Table.from_dataframe(table,bordered= True, dark= True, hover = True,responsive= True, striped= True )
+table1 = dbc.Table.from_dataframe(table,bordered= True, dark= False, hover = True,responsive= True, striped= True )
 
 
 layout= html.Div(children=[

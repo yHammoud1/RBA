@@ -12,9 +12,9 @@ from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
 from app import app
-from apps import raw_energy_data, home, eda, clustering, feature_engineering, forecast_models
+from apps import raw_energy_data, home, eda, clustering, feature_engineering, forecast_models, best_forecast_model
 #, maps 
-#  best_forecast_model
+
 
 data = [['House1', 49.26980201, -123.0837633],
         ['House2', 49.26781432, -123.0674411]]
@@ -62,8 +62,8 @@ def display_page(pathname):
         return feature_engineering.layout
     elif pathname == '/forecast_models':
       return forecast_models.layout
-    # elif pathname == '/best_forecast_model':
-    #     return best_forecast_model.layout
+    elif pathname == '/best_forecast_model':
+        return best_forecast_model.layout
     # elif pathname == '/maps':
     #     return html.Div( children = [
     #         html.Br(),
