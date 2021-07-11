@@ -42,7 +42,8 @@ px.set_mapbox_access_token(mapbox_access_token)
 figure = px.scatter_mapbox(df, lat= 'lat', lon= 'long',
                         color = df['Mean_Consumption'] ,
                         hover_data = ['House'],
-                        zoom = 12 , height = 500 ,
+                        zoom = 12 , height = 700 ,
+                        size=df['Mean_Consumption'],
                         mapbox_style = 'streets')
 
 
